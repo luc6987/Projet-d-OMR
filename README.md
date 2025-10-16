@@ -1,4 +1,4 @@
-# GraphOMR: A YOLOv8 and GNN Pipeline for Handwritten Music Recognition
+# GraphOMR: A YOLOv8 and GCN Pipeline for Handwritten Music Recognition
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)
