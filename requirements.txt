@@ -1,2 +1,2 @@
 torch-geometric
-pytorch
+torch
