@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-YOLOv8l微调数据预处理脚本
-从CVC-MUSCIMA数据集生成YOLO格式的训练数据
+YOLOv8l fine-tuning data preprocessing script
+Generate YOLO format training data from CVC-MUSCIMA dataset
 """
 
 import os
@@ -18,29 +18,29 @@ import argparse
 class CVCDataPreprocessor:
     def __init__(self, source_dir: str, output_dir: str):
         """
-        初始化数据预处理器
+        Initialize data preprocessor
         
         Args:
-            source_dir: v1.0数据目录路径
-            output_dir: 输出数据集目录路径
+            source_dir: v1.0 data directory path
+            output_dir: output dataset directory path
         """
         self.source_dir = Path(source_dir)
         self.output_dir = Path(output_dir)
         
-        # 创建输出目录结构
+        # Create output directory structure
         self.setup_output_dirs()
         
-        # 从官方类别定义文件加载类别映射（在预处理开始前会根据频次筛选为Top-K）
+        # Load class mapping from official class definition file (will be filtered to Top-K by frequency before preprocessing)
         self.class_mapping = self.load_class_mapping()
         self.top_k_classes = 73
         self.selected_classes: List[str] = []
         
-        # 采样参数
-        self.sample_size = 1216  # 采样尺寸
-        self.target_size = 640   # 目标尺寸
-        self.num_samples = 14    # 每张图片采样次数
+        # Sampling parameters
+        self.sample_size = 1216  # Sampling size
+        self.target_size = 640   # Target size
+        self.num_samples = 14    # Number of samples per image
         
-        # 可视化标志和统计信息
+        # Visualization flags and statistics
         self.visualization_created = False
         self.stats = {
             'processed_images': 0,
@@ -50,7 +50,7 @@ class CVCDataPreprocessor:
         }
         
     def setup_output_dirs(self):
-        """创建输出目录结构"""
+        """Create output directory structure"""
         dirs = [
             self.output_dir / 'images' / 'train',
             self.output_dir / 'images' / 'val',
@@ -63,53 +63,53 @@ class CVCDataPreprocessor:
         for dir_path in dirs:
             dir_path.mkdir(parents=True, exist_ok=True)
         
-        # 创建可视化输出目录
+        # Create visualization output directory
         project_root = Path(__file__).resolve().parent
         vis_dir = project_root / 'Output' / 'preprocess'
         vis_dir.mkdir(parents=True, exist_ok=True)
     
     def load_class_mapping(self) -> Dict[str, int]:
         """
-        从官方类别定义文件加载类别映射
+        Load class mapping from official class definition file
         
         Returns:
-            类别名称到ID的映射字典
+            Dictionary mapping class names to IDs
         """
         class_mapping = {}
         
         try:
-            # 读取官方类别定义文件
+            # Read official class definition file
             class_def_path = self.source_dir / 'specifications' / 'mff-muscima-mlclasses-annot.xml'
             
             if not class_def_path.exists():
-                print(f"警告: 类别定义文件不存在: {class_def_path}")
-                print("使用默认的类别映射...")
+                print(f"Warning: Class definition file does not exist: {class_def_path}")
+                print("Using default class mapping...")
                 return self.get_default_class_mapping()
             
             tree = ET.parse(class_def_path)
             root = tree.getroot()
             
-            # 解析所有类别定义
+            # Parse all class definitions
             for crop_object_class in root.findall('.//CropObjectClass'):
                 class_id = int(crop_object_class.find('Id').text)
                 class_name = crop_object_class.find('Name').text
                 class_mapping[class_name] = class_id
             
-            print(f"成功加载 {len(class_mapping)} 个官方类别定义")
+            print(f"Successfully loaded {len(class_mapping)} official class definitions")
             
         except Exception as e:
-            print(f"错误: 无法加载类别定义文件: {e}")
-            print("使用默认的类别映射...")
+            print(f"Error: Unable to load class definition file: {e}")
+            print("Using default class mapping...")
             return self.get_default_class_mapping()
         
         return class_mapping
     
     def get_default_class_mapping(self) -> Dict[str, int]:
         """
-        获取默认的类别映射（作为备用）
+        Get default class mapping (as backup)
         
         Returns:
-            默认类别映射字典
+            Default class mapping dictionary
         """
         return {
             'notehead-full': 0,
@@ -165,13 +165,13 @@ class CVCDataPreprocessor:
             
     def parse_xml_annotations(self, xml_path: Path) -> List[Dict]:
         """
-        解析XML标注文件
+        Parse XML annotation file
         
         Args:
-            xml_path: XML文件路径
+            xml_path: XML file path
             
         Returns:
-            符号标注列表
+            List of symbol annotations
         """
         annotations = []
         
@@ -181,7 +181,7 @@ class CVCDataPreprocessor:
             
             for crop_object in root.findall('.//CropObject'):
                 try:
-                    # 尝试两种不同的类别字段名
+                    # Try two different class field names
                     class_elem = crop_object.find('MLClassName')
                     if class_elem is None:
                         class_elem = crop_object.find('ClassName')
@@ -198,7 +198,7 @@ class CVCDataPreprocessor:
                         'height': int(crop_object.find('Height').text)
                     }
                     
-                    # 只处理我们定义的类别
+                    # Only process classes we defined
                     if annotation['class_name'] in self.class_mapping:
                         annotations.append(annotation)
                 except Exception as e:
@@ -211,13 +211,13 @@ class CVCDataPreprocessor:
     
     def parse_all_xml_annotations(self, xml_path: Path) -> List[Dict]:
         """
-        解析XML标注文件，返回所有符号标注（包括未筛选的类别）
+        Parse XML annotation file, return all symbol annotations (including unfiltered classes)
         
         Args:
-            xml_path: XML文件路径
+            xml_path: XML file path
             
         Returns:
-            所有符号标注列表
+            List of all symbol annotations
         """
         annotations = []
         
@@ -225,7 +225,7 @@ class CVCDataPreprocessor:
             tree = ET.parse(xml_path)
             root = tree.getroot()
             
-            # 尝试不同的XPath查询方式
+            # Try different XPath query methods
             crop_objects = root.findall('.//CropObject')
             if not crop_objects:
                 crop_objects = root.findall('CropObject')
@@ -236,10 +236,10 @@ class CVCDataPreprocessor:
             
             for crop_object in crop_objects:
                 try:
-                    # 安全地获取元素文本
+                    # Safely get element text
                     id_elem = crop_object.find('Id')
                     
-                    # 尝试两种不同的类别字段名
+                    # Try two different class field names
                     class_elem = crop_object.find('MLClassName')
                     if class_elem is None:
                         class_elem = crop_object.find('ClassName')
@@ -259,7 +259,7 @@ class CVCDataPreprocessor:
                             'height': int(height_elem.text)
                         }
                         
-                        # 包含所有符号，不进行类别筛选
+                        # Include all symbols, no class filtering
                         annotations.append(annotation)
                     
                 except Exception as e:
@@ -271,13 +271,13 @@ class CVCDataPreprocessor:
     
     def analyze_symbol_relationships(self, xml_path: Path) -> int:
         """
-        分析符号之间的关系（通过Outlinks字段）
+        Analyze relationships between symbols (through Outlinks field)
         
         Args:
-            xml_path: XML文件路径
+            xml_path: XML file path
             
         Returns:
-            符号关系数量
+            Number of symbol relationships
         """
         relationships = 0
         
@@ -296,25 +296,25 @@ class CVCDataPreprocessor:
             for crop_object in crop_objects:
                 outlinks_elem = crop_object.find('Outlinks')
                 if outlinks_elem is not None and outlinks_elem.text:
-                    # Outlinks字段包含空格分隔的ID列表
+                    # Outlinks field contains space-separated ID list
                     outlink_ids = outlinks_elem.text.strip().split()
                     relationships += len(outlink_ids)
                     
         except Exception as e:
-            print(f"分析符号关系时出错: {e}")
+            print(f"Error analyzing symbol relationships: {e}")
             
         return relationships
     
     def generate_random_crop(self, img_width: int, img_height: int) -> Tuple[int, int]:
         """
-        生成随机裁剪位置
+        Generate random crop position
         
         Args:
-            img_width: 图片宽度
-            img_height: 图片高度
+            img_width: Image width
+            img_height: Image height
             
         Returns:
-            (x, y) 裁剪起始位置
+            (x, y) crop starting position
         """
         max_x = max(0, img_width - self.sample_size)
         max_y = max(0, img_height - self.sample_size)
@@ -326,15 +326,15 @@ class CVCDataPreprocessor:
     
     def is_symbol_in_crop(self, annotation: Dict, crop_x: int, crop_y: int) -> bool:
         """
-        检查符号是否与裁剪区域有重叠
+        Check if symbol overlaps with crop region
         
         Args:
-            annotation: 符号标注
-            crop_x: 裁剪区域x坐标
-            crop_y: 裁剪区域y坐标
+            annotation: Symbol annotation
+            crop_x: Crop region x coordinate
+            crop_y: Crop region y coordinate
             
         Returns:
-            是否在裁剪区域内
+            Whether it is within the crop region
         """
         symbol_left = annotation['left']
         symbol_top = annotation['top']
@@ -344,7 +344,7 @@ class CVCDataPreprocessor:
         crop_right = crop_x + self.sample_size
         crop_bottom = crop_y + self.sample_size
         
-        # 只要与裁剪区域有任意交集即认为在裁剪区域内
+        # Consider it within crop region as long as there is any intersection with crop region
         inter_left = max(symbol_left, crop_x)
         inter_top = max(symbol_top, crop_y)
         inter_right = min(symbol_right, crop_right)
@@ -354,35 +354,35 @@ class CVCDataPreprocessor:
     
     def convert_to_yolo_format(self, annotation: Dict, crop_x: int, crop_y: int) -> Tuple[int, float, float, float, float]:
         """
-        将标注转换为YOLO格式
+        Convert annotation to YOLO format
         
         Args:
-            annotation: 符号标注
-            crop_x: 裁剪区域x坐标
-            crop_y: 裁剪区域y坐标
+            annotation: Symbol annotation
+            crop_x: Crop region x coordinate
+            crop_y: Crop region y coordinate
             
         Returns:
-            (class_id, x_center, y_center, width, height) 归一化坐标
+            (class_id, x_center, y_center, width, height) normalized coordinates
         """
         class_id = self.class_mapping[annotation['class_name']]
         
-        # 计算符号在裁剪区域内的位置
+        # Calculate symbol position within crop region
         symbol_left = max(0, annotation['left'] - crop_x)
         symbol_top = max(0, annotation['top'] - crop_y)
         symbol_right = min(self.sample_size, annotation['left'] + annotation['width'] - crop_x)
         symbol_bottom = min(self.sample_size, annotation['top'] + annotation['height'] - crop_y)
         
-        # 确保符号在裁剪区域内
+        # Ensure symbol is within crop region
         if symbol_right <= symbol_left or symbol_bottom <= symbol_top:
             return None
             
-        # 计算中心点和尺寸
+        # Calculate center point and dimensions
         x_center = (symbol_left + symbol_right) / 2.0
         y_center = (symbol_top + symbol_bottom) / 2.0
         width = symbol_right - symbol_left
         height = symbol_bottom - symbol_top
         
-        # 归一化
+        # Normalize
         x_center_norm = x_center / self.sample_size
         y_center_norm = y_center / self.sample_size
         width_norm = width / self.sample_size
@@ -392,43 +392,43 @@ class CVCDataPreprocessor:
 
     def validate_binary_image(self, img: np.ndarray, img_path: Path) -> None:
         """
-        验证图像是否为二值化图像（像素值为0或1）
+        Validate if image is binary (pixel values are 0 or 1)
         
         Args:
-            img: 图像数组
-            img_path: 图像路径（用于错误报告）
+            img: Image array
+            img_path: Image path (for error reporting)
         """
-        # 检查图像是否为灰度图
+        # Check if image is grayscale
         if len(img.shape) == 3:
-            # 如果是彩色图像，转换为灰度图
+            # If it's a color image, convert to grayscale
             gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         else:
             gray_img = img
         
-        # 检查像素值是否只包含0和1
+        # Check if pixel values only contain 0 and 1
         unique_values = np.unique(gray_img)
         
-        # 允许的像素值：0, 1, 255（某些二值化可能使用255而不是1）
+        # Allowed pixel values: 0, 1, 255 (some binarization may use 255 instead of 1)
         allowed_values = {0, 1, 255}
         unexpected_values = set(unique_values) - allowed_values
         
         if unexpected_values:
-            print(f"警告: 图像 {img_path} 不是标准的二值化图像")
-            print(f"  发现非二值化像素值: {sorted(unexpected_values)}")
-            print(f"  所有像素值: {sorted(unique_values)}")
+            print(f"Warning: Image {img_path} is not a standard binary image")
+            print(f"  Found non-binary pixel values: {sorted(unexpected_values)}")
+            print(f"  All pixel values: {sorted(unique_values)}")
             
-            # 如果发现非二值化像素，可以选择强制二值化
-            # 这里我们只发出警告，不强制转换
-            print(f"  建议: 确保源数据是二值化的（像素值为0或1）")
+            # If non-binary pixels are found, we can choose to force binarization
+            # Here we only issue a warning, not force conversion
+            print(f"  Suggestion: Ensure source data is binary (pixel values are 0 or 1)")
 
     def compute_top_classes(self, top_k: int = 73) -> List[str]:
         """
-        预扫描所有标注，统计类别频次，选择Top-K高频类别
+        Pre-scan all annotations, count class frequencies, select Top-K high-frequency classes
         
         Args:
-            top_k: 选择的类别数量
+            top_k: Number of classes to select
         Returns:
-            Top-K类别名称列表
+            List of Top-K class names
         """
         xml_dir = self.source_dir / 'data' / 'cropobjects_manual'
         class_counts: Dict[str, int] = {}
@@ -441,66 +441,66 @@ class CVCDataPreprocessor:
                     if class_name:
                         class_counts[class_name] = class_counts.get(class_name, 0) + 1
             except Exception as e:
-                print(f"统计类别频次时解析失败 {xml_file}: {e}")
-        # 根据频次排序
+                print(f"Failed to parse when counting class frequencies {xml_file}: {e}")
+        # Sort by frequency
         sorted_classes = sorted(class_counts.items(), key=lambda kv: kv[1], reverse=True)
         top_classes = [name for name, _ in sorted_classes[:top_k]]
-        print(f"选择Top-{top_k}类别，共计{len(top_classes)}类")
+        print(f"Selected Top-{top_k} classes, total {len(top_classes)} classes")
         return top_classes
     
     def process_image(self, img_path: Path, xml_path: Path, output_prefix: str) -> List[str]:
         """
-        处理单张图片，生成多个采样
+        Process single image, generate multiple samples
         
         Args:
-            img_path: 图片路径
-            xml_path: XML标注路径
-            output_prefix: 输出文件前缀
+            img_path: Image path
+            xml_path: XML annotation path
+            output_prefix: Output file prefix
             
         Returns:
-            生成的文件名列表
+            List of generated filenames
         """
-        # 确保临时目录存在
+        # Ensure temporary directories exist
         temp_img_dir = self.output_dir / 'images' / 'temp'
         temp_label_dir = self.output_dir / 'labels' / 'temp'
         temp_img_dir.mkdir(parents=True, exist_ok=True)
         temp_label_dir.mkdir(parents=True, exist_ok=True)
         
-        # 读取图片
+        # Read image
         img = cv2.imread(str(img_path))
         if img is None:
             print(f"Error loading image: {img_path}")
             return []
             
-        # 验证图像是否为二值化图像（像素值为0或1）
+        # Validate if image is binary (pixel values are 0 or 1)
         self.validate_binary_image(img, img_path)
             
         img_height, img_width = img.shape[:2]
         
-        # 解析标注
+        # Parse annotations
         annotations = self.parse_xml_annotations(xml_path)
         
         generated_files = []
         
-        # 生成多个采样
-        crop_positions = []  # 用于可视化：记录所有裁剪区域
+        # Generate multiple samples
+        crop_positions = []  # For visualization: record all crop regions
         for i in range(self.num_samples):
-            # 生成随机裁剪位置
+            # Generate random crop position
             crop_x, crop_y = self.generate_random_crop(img_width, img_height)
             crop_positions.append((crop_x, crop_y))
             
-            # 裁剪图片
+            # Crop image
             cropped_img = img[crop_y:crop_y+self.sample_size, crop_x:crop_x+self.sample_size]
             
-            # 缩放到目标尺寸
+            # Resize to target size
             resized_img = cv2.resize(cropped_img, (self.target_size, self.target_size))
             
-            # 保存图片
+            # Save image
             img_filename = f"{output_prefix}_sample_{i:02d}.jpg"
             img_output_path = self.output_dir / 'images' / 'temp' / img_filename
             cv2.imwrite(str(img_output_path), resized_img)
             
-            # 生成对应的标签文件
+            # Generate corresponding label file
             label_filename = f"{output_prefix}_sample_{i:02d}.txt"
             label_output_path = self.output_dir / 'labels' / 'temp' / label_filename
             
@@ -511,43 +511,43 @@ class CVCDataPreprocessor:
                     if yolo_format is not None:
                         yolo_annotations.append(yolo_format)
             
-            # 保存标签文件
+            # Save label file
             with open(label_output_path, 'w') as f:
                 for class_id, x_center, y_center, width, height in yolo_annotations:
                     f.write(f"{class_id} {x_center:.6f} {y_center:.6f} {width:.6f} {height:.6f}\n")
             
             generated_files.append(img_filename)
             
-        # 为每张图片生成可视化
+        # Generate visualization for each image
         try:
             project_root = Path(__file__).resolve().parent
             vis_dir = project_root / 'Output' / 'preprocess'
             
-            # 生成可视化文件名
+            # Generate visualization filename
             vis_filename = f"{output_prefix}.png"
             vis_path = vis_dir / vis_filename
 
             vis_img = img.copy()
 
-            # 获取所有原始符号标注（包括未筛选的类别）
+            # Get all original symbol annotations (including unfiltered classes)
             all_annotations = self.parse_all_xml_annotations(xml_path)
             
-            # 统计符号信息
+            # Count symbol information
             self.stats['processed_images'] += 1
             self.stats['total_symbols'] += len(all_annotations)
             
-            # 统计符号关系
+            # Count symbol relationships
             relationships = self.analyze_symbol_relationships(xml_path)
             self.stats['symbol_relationships'] += relationships
             
-            # 统计符号类型
+            # Count symbol types
             for ann in all_annotations:
                 class_name = ann['class_name']
                 self.stats['symbol_types'][class_name] = self.stats['symbol_types'].get(class_name, 0) + 1
 
-            print(f"处理图片 {output_prefix}: 解析到 {len(all_annotations)} 个符号标注")
+            print(f"Processing image {output_prefix}: parsed {len(all_annotations)} symbol annotations")
 
-            # 绘制所有符号框和标注（蓝色）
+            # Draw all symbol boxes and annotations (blue)
             for ann in all_annotations:
                 x1 = ann['left']
                 y1 = ann['top']
@@ -555,34 +555,34 @@ class CVCDataPreprocessor:
                 y2 = y1 + ann['height']
                 cv2.rectangle(vis_img, (x1, y1), (x2, y2), (255, 0, 0), 2)
                 
-                # 添加类别名称标注
+                # Add class name annotation
                 class_name = ann['class_name']
-                # 计算文本位置（在框的上方）
+                # Calculate text position (above the box)
                 text_x = x1
-                text_y = max(y1 - 5, 15)  # 确保文本不超出图片边界
+                text_y = max(y1 - 5, 15)  # Ensure text does not exceed image boundaries
                 
-                # 绘制文本背景
+                # Draw text background
                 text_size = cv2.getTextSize(class_name, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)[0]
                 cv2.rectangle(vis_img, (text_x, text_y - text_size[1] - 5), 
                             (text_x + text_size[0], text_y), (255, 255, 255), -1)
                 
-                # 绘制文本
+                # Draw text
                 cv2.putText(vis_img, class_name, (text_x, text_y - 2), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
 
-            # 绘制所有裁剪区域（绿色）
+            # Draw all crop regions (green)
             for (cx, cy) in crop_positions:
                 cv2.rectangle(vis_img, (cx, cy), (cx + self.sample_size, cy + self.sample_size), (0, 255, 0), 2)
-                # 添加裁剪区域编号
+                # Add crop region number
                 cv2.putText(vis_img, f"Crop", (cx + 5, cy + 20), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
-            # 保持原分辨率保存
+            # Save at original resolution
             cv2.imwrite(str(vis_path), vis_img)
-            print(f"可视化图片已保存到: {vis_path}")
+            print(f"Visualization image saved to: {vis_path}")
             
         except Exception as e:
-            print(f"可视化保存失败: {e}")
+            print(f"Visualization save failed: {e}")
             import traceback
             traceback.print_exc()
 
@@ -590,13 +590,13 @@ class CVCDataPreprocessor:
     
     def split_dataset(self, all_files: List[str], train_ratio: float = 0.6, val_ratio: float = 0.2, test_ratio: float = 0.2):
         """
-        划分数据集
+        Split dataset
         
         Args:
-            all_files: 所有生成的文件列表
-            train_ratio: 训练集比例
-            val_ratio: 验证集比例
-            test_ratio: 测试集比例
+            all_files: List of all generated files
+            train_ratio: Training set ratio
+            val_ratio: Validation set ratio
+            test_ratio: Test set ratio
         """
         random.shuffle(all_files)
         
@@ -609,58 +609,58 @@ class CVCDataPreprocessor:
         val_files = all_files[train_count:train_count + val_count]
         test_files = all_files[train_count + val_count:train_count + val_count + test_count]
         
-        # 移动文件到对应目录
+        # Move files to corresponding directories
         temp_img_dir = self.output_dir / 'images' / 'temp'
         temp_label_dir = self.output_dir / 'labels' / 'temp'
         
         for filename in train_files:
-            # 移动图片
+            # Move image
             src_img = temp_img_dir / filename
             dst_img = self.output_dir / 'images' / 'train' / filename
             shutil.move(str(src_img), str(dst_img))
             
-            # 移动标签
+            # Move label
             label_filename = filename.replace('.jpg', '.txt')
             src_label = temp_label_dir / label_filename
             dst_label = self.output_dir / 'labels' / 'train' / label_filename
             shutil.move(str(src_label), str(dst_label))
         
         for filename in val_files:
-            # 移动图片
+            # Move image
             src_img = temp_img_dir / filename
             dst_img = self.output_dir / 'images' / 'val' / filename
             shutil.move(str(src_img), str(dst_img))
             
-            # 移动标签
+            # Move label
             label_filename = filename.replace('.jpg', '.txt')
             src_label = temp_label_dir / label_filename
             dst_label = self.output_dir / 'labels' / 'val' / label_filename
             shutil.move(str(src_label), str(dst_label))
         
         for filename in test_files:
-            # 移动图片
+            # Move image
             src_img = temp_img_dir / filename
             dst_img = self.output_dir / 'images' / 'test' / filename
             shutil.move(str(src_img), str(dst_img))
             
-            # 移动标签
+            # Move label
             label_filename = filename.replace('.jpg', '.txt')
             src_label = temp_label_dir / label_filename
             dst_label = self.output_dir / 'labels' / 'test' / label_filename
             shutil.move(str(src_label), str(dst_label))
         
-        # 清理临时目录
+        # Clean up temporary directories
         shutil.rmtree(temp_img_dir)
         shutil.rmtree(temp_label_dir)
         
-        print(f"数据集划分完成:")
-        print(f"  训练集: {len(train_files)} 个样本")
-        print(f"  验证集: {len(val_files)} 个样本")
-        print(f"  测试集: {len(test_files)} 个样本")
+        print(f"Dataset split completed:")
+        print(f"  Training set: {len(train_files)} samples")
+        print(f"  Validation set: {len(val_files)} samples")
+        print(f"  Test set: {len(test_files)} samples")
     
     def create_data_yaml(self):
-        """创建data.yaml配置文件"""
-        # 使用重建后的73类映射，按ID排序获取类别名称列表
+        """Create data.yaml configuration file"""
+        # Use reconstructed 73-class mapping, get class name list sorted by ID
         id_to_name = {v: k for k, v in self.class_mapping.items()}
         class_names = [id_to_name[i] for i in sorted(id_to_name.keys())]
         
@@ -677,103 +677,141 @@ class CVCDataPreprocessor:
             yaml.dump(data_config, f, default_flow_style=False)
     
     def process_all_data(self):
-        """处理所有数据"""
-        print("开始处理CVC-MUSCIMA数据集...")
+        """Process all data"""
+        print("Starting to process CVC-MUSCIMA dataset...")
         
-        # 创建临时目录
+        # Create temporary directories
         (self.output_dir / 'images' / 'temp').mkdir(parents=True, exist_ok=True)
         (self.output_dir / 'labels' / 'temp').mkdir(parents=True, exist_ok=True)
         
-        # 预扫描选择Top-K类别并重建类别映射
-        print(f"预扫描并选择Top-{self.top_k_classes}高频类别...")
+        # Pre-scan to select Top-K classes and rebuild class mapping
+        print(f"Pre-scanning and selecting Top-{self.top_k_classes} high-frequency classes...")
         self.selected_classes = self.compute_top_classes(self.top_k_classes)
         self.class_mapping = {name: idx for idx, name in enumerate(self.selected_classes)}
-        print(f"已重建类别映射为{len(self.class_mapping)}类")
+        print(f"Rebuilt class mapping to {len(self.class_mapping)} classes")
 
         all_generated_files = []
         
-        # 遍历所有XML文件，基于XML文件查找对应的图片
+        # Traverse all XML files, find corresponding images based on XML files
         xml_dir = self.source_dir / 'data' / 'cropobjects_manual'
         
         for xml_file in sorted(xml_dir.glob('CVC-MUSCIMA_W-*_N-*_D-ideal.xml')):
-            # 解析XML文件名获取writer和页面信息
-            # 格式: CVC-MUSCIMA_W-01_N-10_D-ideal.xml
+            # Parse XML filename to get writer and page information
+            # Format: CVC-MUSCIMA_W-01_N-10_D-ideal.xml
             parts = xml_file.stem.split('_')
             writer_name = parts[1].lower()  # W-01 -> w-01
             page_number = parts[2].split('-')[1]  # N-10 -> 10
             
-            print(f"处理 {writer_name} 页面 {page_number}...")
+            print(f"Processing {writer_name} page {page_number}...")
             
-            # 查找对应的图片文件
+            # Find corresponding image file
             symbol_dir = self.source_dir / 'data' / 'images' / writer_name / 'symbol'
             if not symbol_dir.exists():
-                print(f"  符号目录不存在: {symbol_dir}")
+                print(f"  Symbol directory does not exist: {symbol_dir}")
                 continue
             
-            # 构建图片文件名: 10 -> p010.png
+            # Build image filename: 10 -> p010.png
             img_filename = f"p{page_number.zfill(3)}.png"
             img_path = symbol_dir / img_filename
             
             if not img_path.exists():
-                print(f"  图片文件不存在: {img_path}")
+                print(f"  Image file does not exist: {img_path}")
                 continue
             
-            # 生成输出文件前缀
-            output_prefix = f"{writer_name}_{img_filename[:-4]}"  # 去掉.png后缀
+            # Generate output file prefix
+            output_prefix = f"{writer_name}_{img_filename[:-4]}"  # Remove .png suffix
             
-            # 处理图片
+            # Process image
             generated_files = self.process_image(img_path, xml_file, output_prefix)
             all_generated_files.extend(generated_files)
             
-            print(f"  生成了 {len(generated_files)} 个样本")
+            print(f"  Generated {len(generated_files)} samples")
         
-        print(f"总共生成了 {len(all_generated_files)} 个样本")
+        print(f"Total generated {len(all_generated_files)} samples")
         
-        # 划分数据集
-        print("划分数据集...")
+        # Split dataset
+        print("Splitting dataset...")
         self.split_dataset(all_generated_files)
         
-        # 创建配置文件
-        print("创建data.yaml...")
+        # Create configuration file
+        print("Creating data.yaml...")
         self.create_data_yaml()
         
-        print("数据预处理完成！")
-        print(f"输出目录: {self.output_dir}")
-        print(f"类别数量: {len(self.class_mapping)}")
-        print(f"类别列表: {list(self.class_mapping.keys())}")
+        print("Data preprocessing completed!")
+        print(f"Output directory: {self.output_dir}")
+        print(f"Number of classes: {len(self.class_mapping)}")
+        print(f"Class list: {list(self.class_mapping.keys())}")
         
-        # 显示统计信息
-        print("\n=== 数据统计信息 ===")
-        print(f"1. 被标记的图片数量: {self.stats['processed_images']}")
-        print(f"2. 总符号数量: {self.stats['total_symbols']}")
-        print(f"3. 符号关系数量: {self.stats['symbol_relationships']}")
+        # Display statistics
+        print("\n=== Data Statistics ===")
+        print(f"1. Number of labeled images: {self.stats['processed_images']}")
+        print(f"2. Total number of symbols: {self.stats['total_symbols']}")
+        print(f"3. Number of symbol relationships: {self.stats['symbol_relationships']}")
         
-        print(f"\n符号类型统计 (Top 20):")
+        print(f"\nSymbol type statistics (Top 20):")
         sorted_types = sorted(self.stats['symbol_types'].items(), key=lambda x: x[1], reverse=True)
         for i, (symbol_type, count) in enumerate(sorted_types[:20]):
-            print(f"  {i+1:2d}. {symbol_type:<25} : {count:>6} 个")
+            print(f"  {i+1:2d}. {symbol_type:<25} : {count:>6} items")
         
         if len(sorted_types) > 20:
-            print(f"  ... 还有 {len(sorted_types) - 20} 种其他符号类型")
+            print(f"  ... and {len(sorted_types) - 20} other symbol types")
         
-        print(f"\n可视化图片已保存到: {Path(__file__).resolve().parent / 'Output' / 'preprocess'}")
+        print(f"\nVisualization images saved to: {Path(__file__).resolve().parent / '../Output' / 'preprocess'}")
 
 def main():
-    parser = argparse.ArgumentParser(description='CVC-MUSCIMA数据预处理脚本')
+    parser = argparse.ArgumentParser(description='CVC-MUSCIMA data preprocessing script')
     parser.add_argument('--source', type=str, 
                        default='/users/eleves-a/2023/yuguang.yao/Projet-d-OMR/v1.0',
-                       help='源数据目录路径')
+                       help='Source data directory path')
     parser.add_argument('--output', type=str,
                        default='/users/eleves-a/2023/yuguang.yao/Projet-d-OMR/Yolo-Dataset',
-                       help='输出数据集目录路径')
+                       help='Output dataset directory path')
     
     args = parser.parse_args()
     
-    # 创建预处理器
+    # Create preprocessor
     preprocessor = CVCDataPreprocessor(args.source, args.output)
     
-    # 处理数据
+    # Process data
     preprocessor.process_all_data()
+
+
+def preprocess_from_config(config):
+    """
+    Perform data preprocessing from configuration object
+    
+    Args:
+        config: FinetuningConfig configuration object
+    """
+    import sys
+    setup_path = str(Path(__file__).parent.parent / 'setup')
+    if setup_path not in sys.path:
+        sys.path.append(setup_path)
+    from setup_finetuning import FinetuningConfig
+    
+    if not isinstance(config, FinetuningConfig):
+        raise ValueError("config must be a FinetuningConfig instance")
+    
+    # Get parameters from configuration
+    preprocessing_args = config.get_preprocessing_args()
+    
+    # Create preprocessor
+    preprocessor = CVCDataPreprocessor(
+        preprocessing_args['source'], 
+        preprocessing_args['output']
+    )
+    
+    # Set preprocessing parameters
+    preprocessor.top_k_classes = preprocessing_args['top_k_classes']
+    preprocessor.sample_size = preprocessing_args['sample_size']
+    preprocessor.target_size = preprocessing_args['target_size']
+    preprocessor.num_samples = preprocessing_args['num_samples']
+    
+    # Process data
+    preprocessor.process_all_data()
+    
+    return preprocessor
+
 
 if __name__ == '__main__':
     main()
