@@ -31,7 +31,7 @@ Thumbs.db
 # Model outputs
 
 predictions/
-*.pth
+
 *.pt
 *.h5
 *.pkl
