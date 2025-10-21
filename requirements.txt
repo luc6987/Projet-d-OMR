@@ -6,3 +6,5 @@ scipy
 scikit-image
 scikit-learn
 matplotlib
+torch-geometric
+pytorch
