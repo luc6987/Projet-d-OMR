@@ -29,7 +29,7 @@ build/
 Thumbs.db
 
 # Model outputs
-outputs/
+
 predictions/
 *.pth
 *.pt
