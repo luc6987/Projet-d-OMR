@@ -5,8 +5,8 @@ _C = CN()
 
 # System setup
 _C.SYSTEM = CN()
-_C.SYSTEM.NUM_GPUS = 1
-_C.SYSTEM.NUM_WORKERS = 4
+_C.SYSTEM.NUM_GPUS = 0
+_C.SYSTEM.NUM_WORKERS = 0
 _C.SYSTEM.SEED = 95
 
 # Data setup
@@ -19,6 +19,14 @@ _C.MODEL.MODE = "MLP"
 _C.MODEL.MLP_CONFIG = [32, 32]
 _C.MODEL.EMBEDDING_DIM = 32
 _C.MODEL.VOCAB_DIM = 177
+_C.MODEL.MLP_PARA = "configs/assembler/MLP32_balanced.yaml"
+
+
+# DATA PATH
+_C.PATH = CN()
+_C.GT_ROOT = 'data/MUSCIMA++/v2.0/data/annotations'
+_C.IM_ROOT = 'data/MUSCIMA++/datasets_r_staff/images'
+_C.SPFILE = 'splits/mob_split.yaml'
 
 # Training parameter
 _C.TRAIN = CN()
@@ -28,8 +36,10 @@ _C.TRAIN.EVAL_FREQUENCY = 5
 _C.TRAIN.SAVE_FREQUENCY = 5
 # Loss and Optimizer
 _C.TRAIN.POS_WEIGHT = 1
-_C.TRAIN.OPTIMIZER = "Adam"
+_C.TRAIN.OPTIMIZER = "AdamW"
 _C.TRAIN.LEARNING_RATE = 1e-3
+
+
 
 # Inference/Evaluation setup
 _C.EVAL = CN()

@@ -125,12 +125,12 @@ def train(args, data, cfg, device, model, class_list, class_dict):
             all_outputs.extend(torch.sigmoid(output).detach().cpu().numpy().flatten())
             all_labels.extend(batch['label'].detach().cpu().numpy().flatten())
 
-        # Use fixed threshold
+    
         all_outputs = np.array(all_outputs)
         all_labels = np.array(all_labels)
         threshold = 0.5
 
-        # Calculate metrics with fixed threshold
+    
         pred = (all_outputs > threshold).astype(int)
         
         accuracy = (pred == all_labels).mean()
@@ -167,12 +167,12 @@ def train(args, data, cfg, device, model, class_list, class_dict):
             with torch.no_grad():
                 evaluate(args, data, cfg, device, model, class_list, class_dict)
 
-        # Save checkpoint periodically
+      
         if (epoch+1) % cfg.TRAIN.SAVE_FREQUENCY == 0 and (epoch+1) != cfg.TRAIN.NUM_EPOCHS:
             save_checkpoint(epoch+1, model, optimizer,
                             f"{args.output_dir}/{args.exp_name}/model_ep{epoch+1}.pth")
 
-    # Save final model
+   
     save_checkpoint(cfg.TRAIN.NUM_EPOCHS, model, optimizer,
                     f"{args.output_dir}/{args.exp_name}/model_final.pth")
 
@@ -183,14 +183,14 @@ def evaluate(args, data, cfg, device, model, class_list, class_dict, threshold=0
     """Evaluate the model on validation or test set using ground truth."""
     model.eval()
 
-    # Load ground truth annotations for evaluation
+    
     all_gt_files = glob.glob(args.gt_annotations_root + "/**/*.xml", recursive=True)
 
-    # Load split
+
     with open(args.split_file, 'rb') as hdl:
         split = yaml.load(hdl, Loader=yaml.FullLoader)
 
-    # Select validation or test set
+
     if args.test_only:
         include_names = split['test']
         data_split = data['test']
@@ -223,7 +223,7 @@ def evaluate(args, data, cfg, device, model, class_list, class_dict, threshold=0
         edge_list = []
         cur_graph = inference_graph[i]
 
-        # Process in batches
+      
         for batch_idx in range((cur_graph['source_id'].shape[0] // cfg.EVAL.BATCH_SIZE) + 1):
             batch_start = batch_idx * cfg.EVAL.BATCH_SIZE
             batch_end = batch_start + cfg.EVAL.BATCH_SIZE
@@ -234,11 +234,11 @@ def evaluate(args, data, cfg, device, model, class_list, class_dict, threshold=0
             if batch['source_id'].shape[0] == 0:
                 continue
 
-            # Predict edge probabilities
+    
             output = model(batch)
             output = torch.sigmoid(output)
 
-            # Collect outputs and labels
+   
             all_outputs.extend(output.detach().cpu().numpy().flatten())
             all_labels.extend(batch['label'].detach().cpu().numpy().flatten())
 
