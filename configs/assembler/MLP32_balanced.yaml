@@ -3,7 +3,7 @@ TRAIN:
   EVAL_FREQUENCY: 5
   SAVE_FREQUENCY: 10
   BATCH_SIZE: 512
-  POS_WEIGHT: 87  # High positive weight to handle class imbalance
+  POS_WEIGHT: 1  # High positive weight to handle class imbalance
   LEARNING_RATE: 0.0005  # Lower learning rate for better convergence
 EVAL:
   BATCH_SIZE: 1024
