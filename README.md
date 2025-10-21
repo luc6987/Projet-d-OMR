@@ -103,6 +103,47 @@ Once the initial graph is built, a **Graph Neural Network (GNN)** is used to per
     ```
 
 ---
+## 📁 Data Structure
+
+The project uses the MUSCIMA++ dataset for training and evaluation. The `data/` directory structure is organized as follows:
+
+```
+data/
+└── MUSCIMA++/
+    ├── v2.0/
+    │   ├── data/
+    │   │   └── annotations/          # 140 XML annotation files
+    │   │       └── CVC-MUSCIMA_W-*_N-*_D-ideal.xml
+    │   └── specifications/
+    │       ├── cvc-muscima-image-list.txt
+    │       ├── testset-dependent.txt
+    │       ├── testset-independent.txt
+    │       └── mff-muscima-mlclasses-annot.xml
+    ├── datasets_r_staff_essn_crop/   # Processed dataset (staff removed, cropped)
+    │   ├── train/
+    │   │   ├── images/               # Training images
+    │   │   └── labels/               # YOLO format labels
+    │   ├── valid/
+    │   │   ├── images/               # Validation images
+    │   │   └── labels/               # YOLO format labels
+    │   └── test/
+    │       ├── images/               # Test images
+    │       └── labels/               # YOLO format labels
+    └── datasets_r_staff/
+        └── images/                   # 140 PNG images (staff removed)
+            └── CVC-MUSCIMA_W-*_N-*_D-ideal.png
+```
+
+**Dataset Statistics:**
+- Total files: ~3,487 files
+- Total directories: 18 directories
+- Training/Validation/Test splits are pre-processed and ready for YOLO training
+
+**Data Sources:**
+- **MUSCIMA++ v2.0**: Original annotations and specifications
+- **Preprocessed datasets**: Staff-removed versions with YOLO-compatible labels for object detection
+
+---
 ## 💻 Usage
 
 To transcribe a handwritten music sheet, run the `recognize.py` script:
