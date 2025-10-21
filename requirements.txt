@@ -1,0 +1,8 @@
+ultralytics<=8.3.40
+pyyaml
+opencv-python<4.10
+numpy<2.0
+scipy
+scikit-image
+scikit-learn
+matplotlib
