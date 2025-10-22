@@ -1,0 +1,12 @@
+TRAIN:
+  NUM_EPOCHS: 150
+  EVAL_FREQUENCY: 5
+  SAVE_FREQUENCY: 15
+  BATCH_SIZE: 1024
+  POS_WEIGHT: 50  # Reduced from 87 to improve precision
+  LEARNING_RATE: 0.0003  # Slightly lower for better convergence
+  OPTIMIZER: "AdamW"  # Better optimizer for regularization
+EVAL:
+  BATCH_SIZE: 2048
+DATA:
+  DATA_CONFIG: configs/muscima_nogrammar.yaml
