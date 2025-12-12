@@ -1,0 +1,26 @@
+# Optimized hyperparameters for MLP linker training
+# Recommended for datasets with 100K+ training samples
+# Uses larger model capacity (64-dim embeddings) for better learning
+
+TRAIN:
+  NUM_EPOCHS: 200
+  EVAL_FREQUENCY: 5
+  SAVE_FREQUENCY: 10
+  BATCH_SIZE: 2048  # Larger batch for stability
+  POS_WEIGHT: 50  # Adjust based on positive/negative ratio in dataset
+  LEARNING_RATE: 0.0002  # Lower learning rate for larger model
+  OPTIMIZER: "AdamW"
+
+EVAL:
+  BATCH_SIZE: 4096  # Larger batch for faster evaluation
+
+MODEL:
+  MODE: "MLP"
+  MLP_CONFIG: [64, 64, 32]  # Deeper network with more capacity
+  EMBEDDING_DIM: 64  # Larger embeddings
+  VOCAB_DIM: 177
+
+DATA:
+  DATA_CONFIG: src/mlp/assemblage/configs/muscima_nogrammar.yaml
+
+

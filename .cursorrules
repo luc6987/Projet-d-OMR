@@ -1,0 +1,253 @@
+---
+description: Global workflow standards. Enforce Chain of Thought and Plan-Act pattern.
+globs: *
+alwaysApply: true
+---
+
+# Global Workflow Protocol
+
+**Priority**: CRITICAL  
+**Intention**: Prevent premature code generation and ensure architectural alignment.
+
+## Language Protocol
+
+### Chat Interaction
+
+**Primary Language**: Chinese (Simplified).  
+Use Chinese for all conversational output, explanations, reasoning, and planning phases unless explicitly asked otherwise.
+
+### Code Artifacts
+
+**Comment Language**: English.  
+STRICTLY use English for all inline comments, docstrings, variable naming explanations, and commit messages.
+
+**Rationale**: Ensures code portability and alignment with international open-source standards.
+
+## Workflow Protocol
+
+### PLANNING Phase
+
+**Trigger**: Complex logical changes, Refactoring, New Feature Engineering
+
+**Instructions**:
+1. **STOP**. Do not generate code immediately.
+2. Analyze the user request.
+3. Check `@memory/experiment_log.md` for past failures/successes.
+4. Propose a step-by-step plan.
+
+### ACTING Phase
+
+**Instructions** (Only after user confirmation):
+1. Write code in small, verifiable chunks.
+2. No "yapping" (conversational filler). Start directly with code or answer.
+
+## Documentation Rule
+
+**Do NOT generate summary or documentation files** unless explicitly requested.
+
+Unless the user explicitly asks for summary files, documentation files (e.g., *.md summary files), or organizational reports, do not create them. Focus on code changes and implementation only.
+
+**Examples of files NOT to create**:
+- FILE_ORGANIZATION_SUMMARY.md
+- CHANGES.md
+- TODO.md
+- etc.
+
+**Only create documentation when user explicitly requests it.**
+
+---
+description: Python data science standards. Best practices for Pandas, Numpy, and Memory Management.
+globs: **/*.py, **/*.ipynb
+alwaysApply: false
+---
+
+# Data Science Engineering Standards
+
+**Context**: Applied when writing data processing pipelines, feature engineering, or optimized training loops.
+
+## Performance Standards
+
+### Vectorization First
+
+**Rule**: NEVER use `for` loops for dataframe operations. Use `pandas` built-ins or `numpy` vectorization.
+
+**Bad Example**:
+```python
+for index, row in df.iterrows(): ...
+```
+
+**Good Example**:
+```python
+df['new_col'] = df['col_a'] + df['col_b']
+```
+
+### Memory Hygiene
+
+**Rule**: 
+1. Explicitly downcast types (e.g., `float64` -> `float32`, `int64` -> `int8/16`) to save memory.
+2. Use `del` and `gc.collect()` after processing large dataframes.
+
+## Code Quality Standards
+
+### Type Safety
+
+**Rule**: Use `pydantic` for config objects and `typing.Annotated` for function signatures in utility scripts (`utils/*.py`).
+
+### Path Management
+
+**Rule**: NEVER hardcode paths. Use `pathlib.Path` and relative paths from project root.
+
+---
+description: OMR project structure and module organization standards.
+globs: **/*.py, setup.yml
+alwaysApply: true
+---
+
+# OMR Project Structure Standards
+
+**Priority**: CRITICAL  
+**Intention**: Maintain consistent module organization and configuration management.
+
+## Directory Structure Rules
+
+### Core Directories
+
+**Rule**: The following directories have fixed purposes and MUST NOT be used for other purposes:
+
+1. **`model/`** - ONLY stores trained model checkpoints and weights
+   - Structure: `model/<module>/<experiment_name>/model_best.pth`
+   - Example: `model/unet/checkpoints/unet_staff_removal.pt`
+   - Example: `model/mlp/mlp_training/model_best.pth`
+
+2. **`vis_stat/`** - ONLY for training monitoring, loss/accuracy plots, and visualization outputs
+   - Structure: `vis_stat/<module>/`
+   - Contains: training curves, sample visualizations, statistics reports
+   - Example: `vis_stat/unet/training_curves.png`
+
+3. **`data/`** - Fixed data directory, DO NOT modify structure
+   - Contains: all datasets (Yolo-Dataset and v1.0)
+   - Structure: `data/Yolo-Dataset/` and `data/v1.0/`
+   - Path examples: `data/v1.0/data/images/`, `data/Yolo-Dataset/data.yaml`
+
+4. **`src/`** - All source code organized by module
+   - Each module has: `train.py`, `infer.py`, `visualize.py`, `stats.py`
+   - Library files (e.g., `train_UNet.py`, `UNet.py`) belong in module directories
+   - Use relative imports within modules: `from .module import ...`
+
+### Module Organization
+
+**Rule**: Each module (`unet`, `yolo`, `mlp`, `assembler`) MUST have:
+- `train.py` - Module entry point for training (calls core implementation)
+- `infer.py` - Module entry point for inference
+- `visualize.py` - Module entry point for visualization
+- `stats.py` - Module entry point for statistics
+- Core implementation files (e.g., `train_core.py`, `train_UNet.py`) in same directory
+
+**Rule**: AVOID duplicate directories:
+- ❌ `mlp/` and `mlp_linker/` → ✅ `mlp/` only
+- ❌ `assembler/` and `assembly/` → ✅ `assembler/` only
+- ❌ `utils/` and `common/` → ✅ `common/` only
+
+**Rule**: All common utilities go in `src/common/`:
+- `config_loader.py` - Configuration management
+- `logger.py` - Logging system
+- `paths.py` - Path resolution
+- `constants.py` - Shared constants
+- `data_pool_gt.py` - Data loading utilities
+- `utility.py` - General utilities
+- `metrics.py` - Shared metrics
+- `visualization_base.py` - Visualization base classes
+
+## Configuration Management
+
+**Rule**: ALL configuration parameters MUST be in `setup.yml`:
+- Module enable/disable flags
+- Visualization enable/disable flags
+- All hyperparameters (learning rate, batch size, epochs, etc.)
+- All paths (use variable substitution: `${global.model_dir}`)
+- All human-decided parameters
+
+**Rule**: Configuration structure:
+```yaml
+global:
+  dataset_root: "data"
+  model_dir: "model"
+  vis_stat_dir: "vis_stat"
+  log_dir: "logs"
+
+module_enable:
+  unet: true
+  yolo: true
+  mlp: true
+  assembler: true
+
+<module>:
+  train:
+    enabled: true
+    # all training parameters
+  infer:
+    enabled: true
+    # all inference parameters
+  visualize:
+    enabled: true
+    # visualization settings
+  stats:
+    enabled: true
+    # statistics settings
+```
+
+## Import Rules
+
+**Rule**: Use relative imports within modules:
+```python
+# Within src/mlp/train.py
+from .train_core import load_data, train_mlp
+from .model import MLP
+from .assemblage.configs.assembler.default import get_cfg_defaults
+```
+
+**Rule**: Use absolute imports for cross-module references:
+```python
+# From src/mlp/train.py to common
+from common.config_loader import ConfigLoader
+from common.logger import OMRLogger
+```
+
+**Rule**: Library files (e.g., `train_UNet.py`) belong in module directories:
+- `src/unet/train_UNet.py` (not `src/train_UNet.py`)
+- `src/yolo/train_yolo.py` (not `src/train_yolo.py`)
+
+## Entry Point Rules
+
+**Rule**: All operations go through `src/main.py`:
+```bash
+python src/main.py train <module>
+python src/main.py infer <module>
+python src/main.py visualize <module>
+python src/main.py stats <module>
+python src/main.py pipeline  # Run full pipeline
+```
+
+**Rule**: Module entry points (`train.py`, `infer.py`, etc.) MUST:
+- Accept `ConfigLoader` and `PathManager` as parameters
+- Check `enabled` flags from config
+- Use path manager for all path resolution
+- Use logger for all output
+
+## Code Organization Rules
+
+**Rule**: When adding new functionality:
+1. Check if it belongs to an existing module
+2. If yes, add to that module's directory
+3. If no, create new module with `train/infer/visualize/stats` structure
+4. Update `setup.yml` with module configuration
+5. Update `src/main.py` to include new module
+
+**Rule**: When refactoring:
+1. Move library files to appropriate module directories
+2. Update all imports to use relative imports within modules
+3. Update cross-module imports to use absolute imports
+4. Delete empty directories after moving files
+5. Update all documentation references
+
+

@@ -1,0 +1,214 @@
+# OMR Project Configuration
+# Central configuration file for all modules
+# All training parameters, paths, module switches, and visualization settings are defined here
+
+# Global settings
+global:
+  dataset_root: "data"  # Data directory containing Yolo-Dataset and v1.0
+  output_root: "Output"  # Inference outputs
+  model_dir: "model"  # Model checkpoints and trained models
+  vis_stat_dir: "vis_stat"  # Training monitoring, loss/accuracy plots, visualizations
+  log_dir: "logs"  # Training logs
+  seed: 42
+  device: "auto"  # auto, cuda, cuda:0, cpu
+
+# Module enable flags - controls whether modules are active in pipeline
+module_enable:
+  unet: true
+  yolo: true
+  mlp: true
+  assembler: true
+
+# U-Net module configuration
+unet:
+  train:
+    enabled: true
+    data_root: "${global.dataset_root}/v1.0/data/images"
+    image_subdir: "image"
+    staff_subdir: "gt"
+    symbol_subdir: "symbol"
+    extensions: [".png", ".jpg", ".jpeg"]
+    img_size: 512
+    batch_size: 4
+    epochs: 100
+    val_ratio: 0.1
+    optimizer: "adamw"  # adam, adamw, sgd
+    lr: 0.001
+    weight_decay: 0.0001
+    beta1: 0.9
+    beta2: 0.999
+    momentum: 0.9
+    nesterov: false
+    num_workers: 4
+    lr_scheduler: "plateau"  # none, cosine, plateau
+    scheduler_metric: "iou"  # iou, loss
+    lr_gamma: 0.5
+    lr_patience: 5
+    min_lr: 0.000001
+    grad_clip: 0.0
+    amp: false
+    num_classes: 3
+    base_channels: 64
+    dropout: 0.0
+    use_transposed_conv: false
+    class_weights: ""  # comma-separated weights
+    max_rotation: 2.5
+    augment: true
+    staff_threshold: 128
+    symbol_threshold: 128
+    early_stop: 0
+    checkpoint_path: "${global.model_dir}/checkpoints/unet_staff_removal.pt"
+    log_json: null  # auto-generated if null
+  infer:
+    enabled: true
+    data_root: "${global.dataset_root}/v1.0/data/images"
+    image_subdir: "image"
+    extensions: [".png", ".jpg", ".jpeg"]
+    checkpoint: "${global.model_dir}/checkpoints/unet_staff_removal.pt"
+    output_dir: "${global.output_root}/UNet"
+    tile_size: 512
+    overlap: 64
+    batch_size: 4
+    amp: false
+    save_mask: false
+    save_clean: true
+    save_overlay: false
+  visualize:
+    enabled: true  # Enable visualization generation
+    output_dir: "${global.vis_stat_dir}/unet"
+    save_training_curves: true  # Save loss/accuracy curves
+    save_sample_predictions: true  # Save sample prediction visualizations
+    num_samples: 10  # Number of samples to visualize
+  stats:
+    enabled: true  # Enable statistics generation
+    output_dir: "${global.vis_stat_dir}/unet"
+    save_metrics_csv: true  # Save metrics to CSV
+    save_summary_json: true  # Save summary statistics to JSON
+
+# YOLO module configuration
+yolo:
+  train:
+    enabled: true
+    data_yaml: "${global.dataset_root}/Yolo-Dataset/data.yaml"
+    pretrained_weights: "yolo12l.pt"
+    resume_weights: "${global.model_dir}/yolo/detect/yolo12l_muscima_finetune/weights/last.pt"
+    epochs: 500
+    batch_size: 8
+    image_size: 640
+    learning_rate: 0.000055
+    optimizer: "AdamW"  # SGD, Adam, AdamW
+    momentum: 0.9
+    patience: 100
+    workers: 8
+    project_dir: "${global.model_dir}/yolo/detect"
+    run_name: "yolo12l_muscima_finetune"
+    exist_ok: true
+    cache: "ram"  # ram, disk, False
+    freeze_layers: 0
+    resume_training: ""
+    close_mosaic: false
+    cosine_lr: false
+    save_period: -1
+    amp: false
+    run_validation: false
+    run_test: false
+    export_format: ""
+    checkpoint_path: "${global.model_dir}/yolo/detect/${yolo.train.run_name}/weights/best.pt"
+    log_json: null  # auto-generated if null
+  infer:
+    enabled: true
+    model_path: "${global.model_dir}/yolo/detect/yolo12l_muscima_finetune/weights/best.pt"
+    input_image_path: "${global.dataset_root}/v1.0/data/images/w-01/symbol/p001.png"
+    output_dir: "${global.output_root}/inference_output"
+    tile_size: 1216
+    target_size: 640
+    overlap: 100
+    confidence_threshold: 0.25
+    iou_threshold: 0.45
+    nms_iou_threshold: 0.5
+    save_detected_image: true
+    save_crop_visualization: true
+    save_combined_visualization: true
+    save_results_json: true
+    save_all_results_json: true
+    save_report_txt: true
+  visualize:
+    enabled: true  # Enable visualization generation
+    output_dir: "${global.vis_stat_dir}/yolo"
+    save_training_curves: true
+    save_detection_samples: true
+    num_samples: 10
+  stats:
+    enabled: true  # Enable statistics generation
+    output_dir: "${global.vis_stat_dir}/yolo"
+    save_metrics_csv: true
+    save_summary_json: true
+
+# MLP module configuration
+mlp:
+  train:
+    enabled: true
+    gt_annotations_root: "${global.dataset_root}/v1.0/data/MUSCIMA++/v2.0/data/annotations"
+    images_root: "${global.dataset_root}/v1.0/data/MUSCIMA++/datasets_r_staff/images"
+    split_file: "src/mlp/assemblage/splits/mob_split.yaml"
+    classes: "essential"  # 20, essential, essn, all
+    model_config: "src/mlp/assemblage/configs/assembler/default.py"
+    data_config: "src/mlp/assemblage/configs/muscima_nogrammar.yaml"
+    exp_name: "mlp_training"
+    batch_size: 32
+    num_epochs: 100
+    learning_rate: 0.001
+    pos_weight: 1.0
+    threshold: 0.5
+    num_workers: 0
+    checkpoint_path: "${global.model_dir}/mlp/${mlp.train.exp_name}/model_best.pth"
+    save_period: 5  # Save checkpoint every N epochs
+    log_json: null  # auto-generated if null
+  infer:
+    enabled: true
+    model_path: "${global.model_dir}/mlp/${mlp.train.exp_name}/model_best.pth"
+    threshold: 0.5
+  visualize:
+    enabled: true  # Enable visualization generation
+    output_dir: "${global.vis_stat_dir}/mlp"
+    save_training_curves: true
+    save_link_samples: true
+    num_samples: 10
+  stats:
+    enabled: true  # Enable statistics generation
+    output_dir: "${global.vis_stat_dir}/mlp"
+    save_metrics_csv: true
+    save_summary_json: true
+
+# Assembler module configuration
+assembler:
+  infer:
+    enabled: true
+    json_path: null  # Path to YOLO detection results JSON
+    mask_path: null  # Path to U-Net staff mask
+    output_path: null  # Output MusicXML path
+    model_path: "${global.model_dir}/mlp/${mlp.train.exp_name}/model_best.pth"
+    title: null
+    composer: null
+    max_parts: null
+    min_symbols: 10
+    visualize: false
+    original_image: null
+  visualize:
+    enabled: true
+    output_dir: "${global.vis_stat_dir}/assembler"
+  stats:
+    enabled: true
+    output_dir: "${global.vis_stat_dir}/assembler"
+
+# Global visualization and monitoring settings
+visualization:
+  enabled: true  # Global visualization switch
+  backend: "tensorboard"  # tensorboard, wandb, plain
+  tensorboard_dir: "${global.vis_stat_dir}/tensorboard"
+  wandb_project: "omr_project"
+  save_plots: true
+  plot_format: "png"  # png, pdf, svg
+  dpi: 150  # Plot resolution
+  figure_size: [12, 8]  # Default figure size [width, height]
+

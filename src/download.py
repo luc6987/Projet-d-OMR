@@ -15,9 +15,9 @@ downloader.download_and_extract_dataset(OmrDataset.CvcMuscima_StaffRemoval, "../
 os.system("ls -la ../data/CvcMuscima-Distortions/ideal")
 
 # extract the data we need and delete the rest
-Path('../v1.0/data/images').mkdir(parents=True, exist_ok=True)
+Path('../data/v1.0/data/images').mkdir(parents=True, exist_ok=True)
 for item in Path('../data/CvcMuscima-Distortions/ideal').iterdir():
-    dest_path = Path('../v1.0/data/images') / item.name
+    dest_path = Path('../data/v1.0/data/images') / item.name
     if dest_path.exists():
         shutil.rmtree(dest_path) if dest_path.is_dir() else dest_path.unlink()
     shutil.move(str(item), str(dest_path))

@@ -1,4 +1,4 @@
-ultralytics<=8.3.40
+ultralytics>=8.3.70
 pyyaml
 opencv-python<4.10
 numpy<2.0
@@ -7,5 +7,6 @@ scikit-image
 scikit-learn
 matplotlib
 torch-geometric
-pytorch
+
 torch
+music21

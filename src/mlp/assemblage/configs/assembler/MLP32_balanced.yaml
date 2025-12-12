@@ -1,0 +1,24 @@
+# Balanced hyperparameters for MLP linker training
+# Recommended for medium-sized datasets (10K-100K samples)
+# Good starting point for most use cases
+
+TRAIN:
+  NUM_EPOCHS: 150
+  EVAL_FREQUENCY: 5
+  SAVE_FREQUENCY: 15
+  BATCH_SIZE: 1024
+  POS_WEIGHT: 50  # Adjust based on dataset imbalance
+  LEARNING_RATE: 0.0003
+  OPTIMIZER: "AdamW"
+
+EVAL:
+  BATCH_SIZE: 2048
+
+MODEL:
+  MODE: "MLP"
+  MLP_CONFIG: [32, 32]
+  EMBEDDING_DIM: 32
+  VOCAB_DIM: 177
+
+DATA:
+  DATA_CONFIG: src/mlp/assemblage/configs/muscima_nogrammar.yaml

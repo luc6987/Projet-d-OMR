@@ -8,3 +8,6 @@ Yolo-Dataset/
 test_single/
 test_dataset/
 Output/
+vis_stat/
+logs/
+data/
