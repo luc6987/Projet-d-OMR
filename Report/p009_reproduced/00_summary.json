@@ -1,0 +1,33 @@
+{
+  "total_symbols": 410,
+  "total_links": 259,
+  "staff_systems": 3,
+  "symbol_counts": {
+    "key_signature": 1,
+    "measure_separator": 5,
+    "f-clef": 3,
+    "slur": 37,
+    "numeral_4": 1,
+    "flat": 1,
+    "beam": 38,
+    "stem": 129,
+    "natural": 4,
+    "notehead-empty": 5,
+    "thin_barline": 18,
+    "sharp": 7,
+    "numeral_3": 1,
+    "thick_barline": 2,
+    "notehead-full": 129,
+    "repeat": 1,
+    "ledger_line": 25,
+    "time_signature": 1,
+    "trill": 1,
+    "repeat-dot": 1
+  },
+  "link_types": {
+    "stem": 134,
+    "beam": 118,
+    "sharp": 4,
+    "natural": 3
+  }
+}

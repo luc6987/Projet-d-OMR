@@ -1,0 +1,120 @@
+Attribute State Flow
+==================================================
+
+Part 1:
+------------------------------
+[Measure 1]
+  Clef: f-clef
+  Key: 1#
+  Time: 3/4
+
+[Measure 2]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: (Inherited)
+
+[Measure 3]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: (Inherited)
+
+[Measure 4]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: (Inherited)
+
+[Measure 5]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: (Inherited)
+
+[Measure 6]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: (Inherited)
+
+[Measure 7]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: (Inherited)
+
+[Measure 8]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 9]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 10]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 11]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 12]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 13]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 14]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 15]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 16]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 17]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 18]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 19]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 20]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 21]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 22]
+  Clef: f-clef
+  Key: (Inherited)
+  Time: None
+
+[Measure 23]
+  Clef: f-clef
+  Key: C (Changed!)
+  Time: None
+

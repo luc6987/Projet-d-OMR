@@ -1,0 +1,4512 @@
+[
+  {
+    "bbox": [
+      2683,
+      732,
+      2743,
+      831
+    ],
+    "confidence": 0.9799603819847107,
+    "class_id": 17,
+    "class_name": "key_signature"
+  },
+  {
+    "bbox": [
+      2618,
+      726,
+      2650,
+      847
+    ],
+    "confidence": 0.9783827662467957,
+    "class_id": 5,
+    "class_name": "measure_separator"
+  },
+  {
+    "bbox": [
+      223,
+      491,
+      281,
+      610
+    ],
+    "confidence": 0.9766072630882263,
+    "class_id": 30,
+    "class_name": "f-clef"
+  },
+  {
+    "bbox": [
+      219,
+      735,
+      273,
+      843
+    ],
+    "confidence": 0.9748097062110901,
+    "class_id": 30,
+    "class_name": "f-clef"
+  },
+  {
+    "bbox": [
+      708,
+      709,
+      809,
+      773
+    ],
+    "confidence": 0.9742092490196228,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2245,
+      451,
+      2339,
+      496
+    ],
+    "confidence": 0.9719826579093933,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      344,
+      321,
+      370,
+      363
+    ],
+    "confidence": 0.9714474678039551,
+    "class_id": 49,
+    "class_name": "numeral_4"
+  },
+  {
+    "bbox": [
+      877,
+      711,
+      963,
+      754
+    ],
+    "confidence": 0.9713229537010193,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2717,
+      787,
+      2743,
+      832
+    ],
+    "confidence": 0.9711797833442688,
+    "class_id": 13,
+    "class_name": "flat"
+  },
+  {
+    "bbox": [
+      237,
+      260,
+      296,
+      369
+    ],
+    "confidence": 0.9707076549530029,
+    "class_id": 30,
+    "class_name": "f-clef"
+  },
+  {
+    "bbox": [
+      743,
+      457,
+      863,
+      525
+    ],
+    "confidence": 0.9706768989562988,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2389,
+      230,
+      2479,
+      266
+    ],
+    "confidence": 0.9701210856437683,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      420,
+      212,
+      527,
+      266
+    ],
+    "confidence": 0.9690687656402588,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2877,
+      469,
+      3009,
+      511
+    ],
+    "confidence": 0.9688577651977539,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      687,
+      570,
+      972,
+      655
+    ],
+    "confidence": 0.9686731696128845,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1684,
+      197,
+      1809,
+      251
+    ],
+    "confidence": 0.9685009717941284,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      372,
+      456,
+      425,
+      491
+    ],
+    "confidence": 0.9677212834358215,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2133,
+      716,
+      2160,
+      901
+    ],
+    "confidence": 0.9673321843147278,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1764,
+      698,
+      1873,
+      745
+    ],
+    "confidence": 0.9672574400901794,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      613,
+      200,
+      710,
+      241
+    ],
+    "confidence": 0.9671858549118042,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      3081,
+      476,
+      3235,
+      529
+    ],
+    "confidence": 0.9656833410263062,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2076,
+      190,
+      2128,
+      229
+    ],
+    "confidence": 0.96563720703125,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1882,
+      458,
+      1961,
+      592
+    ],
+    "confidence": 0.9655274748802185,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1709,
+      725,
+      1719,
+      847
+    ],
+    "confidence": 0.964983344078064,
+    "class_id": 5,
+    "class_name": "measure_separator"
+  },
+  {
+    "bbox": [
+      326,
+      736,
+      351,
+      790
+    ],
+    "confidence": 0.9645031690597534,
+    "class_id": 14,
+    "class_name": "natural"
+  },
+  {
+    "bbox": [
+      1396,
+      818,
+      1648,
+      865
+    ],
+    "confidence": 0.9644871950149536,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1405,
+      709,
+      1502,
+      774
+    ],
+    "confidence": 0.9636021852493286,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      605,
+      295,
+      707,
+      332
+    ],
+    "confidence": 0.9635219573974609,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1489,
+      473,
+      1583,
+      533
+    ],
+    "confidence": 0.9634496569633484,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      3175,
+      223,
+      3266,
+      258
+    ],
+    "confidence": 0.9633696675300598,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      961,
+      244,
+      1011,
+      286
+    ],
+    "confidence": 0.9633491039276123,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2151,
+      217,
+      2200,
+      247
+    ],
+    "confidence": 0.9633411169052124,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1325,
+      242,
+      1346,
+      361
+    ],
+    "confidence": 0.9632599353790283,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1482,
+      361,
+      1512,
+      386
+    ],
+    "confidence": 0.9627794623374939,
+    "class_id": 10,
+    "class_name": "notehead-empty"
+  },
+  {
+    "bbox": [
+      3071,
+      591,
+      3224,
+      629
+    ],
+    "confidence": 0.9625213146209717,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1010,
+      725,
+      1023,
+      850
+    ],
+    "confidence": 0.9615412354469299,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      788,
+      208,
+      840,
+      232
+    ],
+    "confidence": 0.961445152759552,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      465,
+      491,
+      517,
+      519
+    ],
+    "confidence": 0.9613687992095947,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1460,
+      305,
+      1492,
+      331
+    ],
+    "confidence": 0.9611310958862305,
+    "class_id": 10,
+    "class_name": "notehead-empty"
+  },
+  {
+    "bbox": [
+      1980,
+      715,
+      2005,
+      849
+    ],
+    "confidence": 0.9610336422920227,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1868,
+      194,
+      1971,
+      226
+    ],
+    "confidence": 0.9601824283599854,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2106,
+      493,
+      2125,
+      634
+    ],
+    "confidence": 0.960084855556488,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3155,
+      328,
+      3267,
+      361
+    ],
+    "confidence": 0.9599699378013611,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1063,
+      769,
+      1109,
+      801
+    ],
+    "confidence": 0.9597424864768982,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      645,
+      489,
+      655,
+      612
+    ],
+    "confidence": 0.9597309231758118,
+    "class_id": 5,
+    "class_name": "measure_separator"
+  },
+  {
+    "bbox": [
+      2104,
+      723,
+      2117,
+      843
+    ],
+    "confidence": 0.959432065486908,
+    "class_id": 5,
+    "class_name": "measure_separator"
+  },
+  {
+    "bbox": [
+      2456,
+      524,
+      2484,
+      573
+    ],
+    "confidence": 0.9591120481491089,
+    "class_id": 9,
+    "class_name": "sharp"
+  },
+  {
+    "bbox": [
+      2363,
+      763,
+      2385,
+      897
+    ],
+    "confidence": 0.9588159918785095,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1216,
+      421,
+      1292,
+      465
+    ],
+    "confidence": 0.958560585975647,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1243,
+      703,
+      1267,
+      860
+    ],
+    "confidence": 0.9580217599868774,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      869,
+      809,
+      974,
+      842
+    ],
+    "confidence": 0.9577577114105225,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1294,
+      216,
+      1337,
+      266
+    ],
+    "confidence": 0.9575921893119812,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2708,
+      524,
+      2734,
+      580
+    ],
+    "confidence": 0.9572051167488098,
+    "class_id": 14,
+    "class_name": "natural"
+  },
+  {
+    "bbox": [
+      882,
+      236,
+      922,
+      262
+    ],
+    "confidence": 0.9563595056533813,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2055,
+      479,
+      2071,
+      642
+    ],
+    "confidence": 0.9561424851417542,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      550,
+      504,
+      598,
+      533
+    ],
+    "confidence": 0.9558869004249573,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1216,
+      198,
+      1253,
+      232
+    ],
+    "confidence": 0.9547982215881348,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2028,
+      700,
+      2057,
+      845
+    ],
+    "confidence": 0.9545971155166626,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1147,
+      779,
+      1189,
+      808
+    ],
+    "confidence": 0.9545673727989197,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      352,
+      266,
+      374,
+      312
+    ],
+    "confidence": 0.9538484811782837,
+    "class_id": 26,
+    "class_name": "numeral_3"
+  },
+  {
+    "bbox": [
+      2636,
+      726,
+      2651,
+      845
+    ],
+    "confidence": 0.9536115527153015,
+    "class_id": 69,
+    "class_name": "thick_barline"
+  },
+  {
+    "bbox": [
+      973,
+      470,
+      990,
+      571
+    ],
+    "confidence": 0.9535935521125793,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2004,
+      255,
+      2016,
+      375
+    ],
+    "confidence": 0.9535176753997803,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      668,
+      779,
+      692,
+      832
+    ],
+    "confidence": 0.9534311890602112,
+    "class_id": 9,
+    "class_name": "sharp"
+  },
+  {
+    "bbox": [
+      2542,
+      490,
+      2554,
+      606
+    ],
+    "confidence": 0.9531570076942444,
+    "class_id": 5,
+    "class_name": "measure_separator"
+  },
+  {
+    "bbox": [
+      2502,
+      734,
+      2538,
+      761
+    ],
+    "confidence": 0.9529147744178772,
+    "class_id": 10,
+    "class_name": "notehead-empty"
+  },
+  {
+    "bbox": [
+      2495,
+      832,
+      2531,
+      863
+    ],
+    "confidence": 0.9527806043624878,
+    "class_id": 10,
+    "class_name": "notehead-empty"
+  },
+  {
+    "bbox": [
+      1727,
+      501,
+      1746,
+      610
+    ],
+    "confidence": 0.9524316191673279,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3188,
+      507,
+      3216,
+      555
+    ],
+    "confidence": 0.9520195722579956,
+    "class_id": 14,
+    "class_name": "natural"
+  },
+  {
+    "bbox": [
+      2178,
+      761,
+      2198,
+      898
+    ],
+    "confidence": 0.9519362449645996,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2446,
+      725,
+      2459,
+      851
+    ],
+    "confidence": 0.9518665671348572,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      1922,
+      715,
+      1935,
+      849
+    ],
+    "confidence": 0.9518351554870605,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1486,
+      539,
+      1507,
+      560
+    ],
+    "confidence": 0.9517666101455688,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2228,
+      502,
+      2240,
+      617
+    ],
+    "confidence": 0.9517145156860352,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1636,
+      709,
+      1654,
+      819
+    ],
+    "confidence": 0.9514642357826233,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      541,
+      543,
+      563,
+      563
+    ],
+    "confidence": 0.9506843686103821,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1854,
+      724,
+      1871,
+      846
+    ],
+    "confidence": 0.9504491090774536,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1044,
+      489,
+      1054,
+      613
+    ],
+    "confidence": 0.9503063559532166,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      705,
+      831,
+      770,
+      861
+    ],
+    "confidence": 0.950271487236023,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2382,
+      324,
+      2476,
+      358
+    ],
+    "confidence": 0.9502578973770142,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1995,
+      499,
+      2009,
+      646
+    ],
+    "confidence": 0.9502299427986145,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1401,
+      781,
+      1420,
+      800
+    ],
+    "confidence": 0.9499311447143555,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1680,
+      489,
+      1697,
+      612
+    ],
+    "confidence": 0.9497092366218567,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2776,
+      558,
+      2801,
+      578
+    ],
+    "confidence": 0.9495984315872192,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1410,
+      489,
+      1419,
+      607
+    ],
+    "confidence": 0.9494311809539795,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      418,
+      266,
+      476,
+      298
+    ],
+    "confidence": 0.9494109749794006,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      572,
+      702,
+      583,
+      811
+    ],
+    "confidence": 0.9492432475090027,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      655,
+      241,
+      674,
+      258
+    ],
+    "confidence": 0.9491893649101257,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      425,
+      794,
+      454,
+      821
+    ],
+    "confidence": 0.9490617513656616,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2252,
+      248,
+      2297,
+      271
+    ],
+    "confidence": 0.9490026235580444,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1353,
+      726,
+      1364,
+      852
+    ],
+    "confidence": 0.9488951563835144,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      310,
+      267,
+      338,
+      311
+    ],
+    "confidence": 0.9488486647605896,
+    "class_id": 9,
+    "class_name": "sharp"
+  },
+  {
+    "bbox": [
+      1797,
+      490,
+      1806,
+      607
+    ],
+    "confidence": 0.9484995603561401,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      1740,
+      478,
+      1760,
+      503
+    ],
+    "confidence": 0.9481776356697083,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      280,
+      734,
+      303,
+      777
+    ],
+    "confidence": 0.9480685591697693,
+    "class_id": 9,
+    "class_name": "sharp"
+  },
+  {
+    "bbox": [
+      813,
+      737,
+      823,
+      820
+    ],
+    "confidence": 0.9476079940795898,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      737,
+      544,
+      759,
+      562
+    ],
+    "confidence": 0.9472755193710327,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1537,
+      513,
+      1557,
+      535
+    ],
+    "confidence": 0.9472616314888,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3129,
+      529,
+      3152,
+      549
+    ],
+    "confidence": 0.9472124576568604,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2810,
+      347,
+      2835,
+      367
+    ],
+    "confidence": 0.9470052123069763,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3330,
+      493,
+      3342,
+      614
+    ],
+    "confidence": 0.9467698335647583,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      1297,
+      820,
+      1317,
+      841
+    ],
+    "confidence": 0.9466052055358887,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2666,
+      610,
+      2775,
+      640
+    ],
+    "confidence": 0.9463860392570496,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      859,
+      484,
+      881,
+      503
+    ],
+    "confidence": 0.9462978839874268,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3334,
+      259,
+      3344,
+      379
+    ],
+    "confidence": 0.9460301995277405,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      494,
+      529,
+      519,
+      550
+    ],
+    "confidence": 0.9458897113800049,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2697,
+      253,
+      2707,
+      371
+    ],
+    "confidence": 0.945766806602478,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      1854,
+      474,
+      1876,
+      492
+    ],
+    "confidence": 0.945735514163971,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1640,
+      476,
+      1653,
+      610
+    ],
+    "confidence": 0.9456185698509216,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1453,
+      528,
+      1475,
+      577
+    ],
+    "confidence": 0.9455941915512085,
+    "class_id": 9,
+    "class_name": "sharp"
+  },
+  {
+    "bbox": [
+      3230,
+      515,
+      3253,
+      534
+    ],
+    "confidence": 0.945259153842926,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2187,
+      260,
+      2209,
+      280
+    ],
+    "confidence": 0.9451770782470703,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1758,
+      762,
+      1780,
+      781
+    ],
+    "confidence": 0.9451569318771362,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1184,
+      775,
+      1207,
+      794
+    ],
+    "confidence": 0.9451487064361572,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      756,
+      764,
+      776,
+      786
+    ],
+    "confidence": 0.9448794722557068,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      355,
+      782,
+      391,
+      811
+    ],
+    "confidence": 0.9448239207267761,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2175,
+      488,
+      2184,
+      611
+    ],
+    "confidence": 0.9448049068450928,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      818,
+      719,
+      841,
+      738
+    ],
+    "confidence": 0.9447084069252014,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2370,
+      530,
+      2392,
+      549
+    ],
+    "confidence": 0.9446994662284851,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3031,
+      241,
+      3098,
+      302
+    ],
+    "confidence": 0.9446276426315308,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1868,
+      712,
+      1892,
+      729
+    ],
+    "confidence": 0.9444854259490967,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      740,
+      253,
+      749,
+      371
+    ],
+    "confidence": 0.9444776773452759,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      1845,
+      489,
+      1860,
+      656
+    ],
+    "confidence": 0.9440661072731018,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1858,
+      242,
+      1879,
+      258
+    ],
+    "confidence": 0.9436240196228027,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2229,
+      481,
+      2253,
+      503
+    ],
+    "confidence": 0.9434232115745544,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1845,
+      633,
+      2118,
+      661
+    ],
+    "confidence": 0.9432889223098755,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1885,
+      542,
+      1898,
+      651
+    ],
+    "confidence": 0.943225622177124,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1548,
+      710,
+      1561,
+      835
+    ],
+    "confidence": 0.9429599046707153,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1788,
+      248,
+      1801,
+      324
+    ],
+    "confidence": 0.9425145983695984,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      969,
+      733,
+      988,
+      750
+    ],
+    "confidence": 0.9424601793289185,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      395,
+      779,
+      415,
+      797
+    ],
+    "confidence": 0.9423701763153076,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1570,
+      246,
+      1597,
+      266
+    ],
+    "confidence": 0.9423041343688965,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1090,
+      250,
+      1135,
+      285
+    ],
+    "confidence": 0.9419938921928406,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1566,
+      309,
+      1589,
+      329
+    ],
+    "confidence": 0.9412775635719299,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1563,
+      326,
+      1572,
+      384
+    ],
+    "confidence": 0.9412208199501038,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3075,
+      543,
+      3095,
+      562
+    ],
+    "confidence": 0.9409413933753967,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3030,
+      307,
+      3049,
+      326
+    ],
+    "confidence": 0.940667450428009,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2004,
+      483,
+      2025,
+      504
+    ],
+    "confidence": 0.940333902835846,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2756,
+      307,
+      2778,
+      327
+    ],
+    "confidence": 0.9402627944946289,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2107,
+      240,
+      2127,
+      257
+    ],
+    "confidence": 0.9402093291282654,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2939,
+      544,
+      2959,
+      565
+    ],
+    "confidence": 0.9401856660842896,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2828,
+      489,
+      2837,
+      606
+    ],
+    "confidence": 0.9400863647460938,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      291,
+      501,
+      312,
+      545
+    ],
+    "confidence": 0.9394472241401672,
+    "class_id": 9,
+    "class_name": "sharp"
+  },
+  {
+    "bbox": [
+      1593,
+      725,
+      1607,
+      828
+    ],
+    "confidence": 0.9393161535263062,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2389,
+      234,
+      2431,
+      266
+    ],
+    "confidence": 0.9392168521881104,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      2139,
+      264,
+      2150,
+      345
+    ],
+    "confidence": 0.939096987247467,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2100,
+      255,
+      2111,
+      345
+    ],
+    "confidence": 0.938717246055603,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2065,
+      458,
+      2089,
+      482
+    ],
+    "confidence": 0.9382286667823792,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2063,
+      242,
+      2076,
+      342
+    ],
+    "confidence": 0.9382047653198242,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      823,
+      248,
+      846,
+      267
+    ],
+    "confidence": 0.9378688931465149,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1231,
+      481,
+      1244,
+      592
+    ],
+    "confidence": 0.9378517270088196,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2277,
+      290,
+      2299,
+      309
+    ],
+    "confidence": 0.9378183484077454,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1728,
+      276,
+      1750,
+      299
+    ],
+    "confidence": 0.9376465678215027,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      461,
+      307,
+      483,
+      328
+    ],
+    "confidence": 0.9376445412635803,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      775,
+      254,
+      786,
+      366
+    ],
+    "confidence": 0.9376360774040222,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1857,
+      304,
+      1960,
+      323
+    ],
+    "confidence": 0.9376180171966553,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1685,
+      238,
+      1748,
+      279
+    ],
+    "confidence": 0.9375795722007751,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2226,
+      291,
+      2239,
+      355
+    ],
+    "confidence": 0.9375761151313782,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2218,
+      747,
+      2234,
+      901
+    ],
+    "confidence": 0.9375016093254089,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2280,
+      497,
+      2303,
+      518
+    ],
+    "confidence": 0.9374784827232361,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2664,
+      532,
+      2688,
+      550
+    ],
+    "confidence": 0.9372928738594055,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2520,
+      260,
+      2540,
+      280
+    ],
+    "confidence": 0.9371750354766846,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2410,
+      567,
+      2432,
+      591
+    ],
+    "confidence": 0.9371658563613892,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2363,
+      545,
+      2373,
+      615
+    ],
+    "confidence": 0.9371456503868103,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1673,
+      353,
+      1691,
+      371
+    ],
+    "confidence": 0.9370282888412476,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2874,
+      573,
+      2896,
+      591
+    ],
+    "confidence": 0.9368703961372375,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2245,
+      822,
+      2261,
+      908
+    ],
+    "confidence": 0.9368171095848083,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1953,
+      240,
+      1968,
+      313
+    ],
+    "confidence": 0.9367465972900391,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1857,
+      257,
+      1867,
+      323
+    ],
+    "confidence": 0.9367249608039856,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3260,
+      241,
+      3281,
+      259
+    ],
+    "confidence": 0.9367038011550903,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2125,
+      477,
+      2147,
+      496
+    ],
+    "confidence": 0.9366483688354492,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      784,
+      483,
+      808,
+      534
+    ],
+    "confidence": 0.9365381598472595,
+    "class_id": 9,
+    "class_name": "sharp"
+  },
+  {
+    "bbox": [
+      1309,
+      705,
+      1321,
+      816
+    ],
+    "confidence": 0.9358947277069092,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1335,
+      474,
+      1346,
+      556
+    ],
+    "confidence": 0.9358934760093689,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2346,
+      254,
+      2355,
+      376
+    ],
+    "confidence": 0.9358920454978943,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      782,
+      237,
+      806,
+      257
+    ],
+    "confidence": 0.9358281493186951,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      940,
+      282,
+      953,
+      356
+    ],
+    "confidence": 0.9357907772064209,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      814,
+      498,
+      831,
+      520
+    ],
+    "confidence": 0.9356956481933594,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      686,
+      573,
+      707,
+      591
+    ],
+    "confidence": 0.9356318116188049,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      859,
+      502,
+      869,
+      604
+    ],
+    "confidence": 0.9356262683868408,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      995,
+      307,
+      1015,
+      324
+    ],
+    "confidence": 0.9354923963546753,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1809,
+      751,
+      1819,
+      842
+    ],
+    "confidence": 0.9353889226913452,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2256,
+      805,
+      2279,
+      823
+    ],
+    "confidence": 0.9350945353507996,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1930,
+      598,
+      1955,
+      619
+    ],
+    "confidence": 0.9350079298019409,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1451,
+      750,
+      1472,
+      768
+    ],
+    "confidence": 0.9350000023841858,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2175,
+      278,
+      2191,
+      359
+    ],
+    "confidence": 0.9347233176231384,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2431,
+      264,
+      2452,
+      283
+    ],
+    "confidence": 0.9347135424613953,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2382,
+      749,
+      2402,
+      766
+    ],
+    "confidence": 0.9346314668655396,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2322,
+      514,
+      2344,
+      531
+    ],
+    "confidence": 0.9344637393951416,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2558,
+      278,
+      2581,
+      296
+    ],
+    "confidence": 0.934410035610199,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1041,
+      260,
+      1049,
+      371
+    ],
+    "confidence": 0.9343866109848022,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      2233,
+      734,
+      2258,
+      754
+    ],
+    "confidence": 0.9343180060386658,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2970,
+      259,
+      3010,
+      376
+    ],
+    "confidence": 0.9340610504150391,
+    "class_id": 56,
+    "class_name": "repeat"
+  },
+  {
+    "bbox": [
+      2893,
+      504,
+      2955,
+      521
+    ],
+    "confidence": 0.933605432510376,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1492,
+      734,
+      1504,
+      844
+    ],
+    "confidence": 0.9336036443710327,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1088,
+      294,
+      1109,
+      312
+    ],
+    "confidence": 0.9335879683494568,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2647,
+      280,
+      2671,
+      295
+    ],
+    "confidence": 0.9330331683158875,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2146,
+      249,
+      2167,
+      265
+    ],
+    "confidence": 0.9329833388328552,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      584,
+      533,
+      597,
+      600
+    ],
+    "confidence": 0.9329743981361389,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      914,
+      476,
+      936,
+      491
+    ],
+    "confidence": 0.9328673481941223,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1451,
+      238,
+      1479,
+      260
+    ],
+    "confidence": 0.9328590631484985,
+    "class_id": 10,
+    "class_name": "notehead-empty"
+  },
+  {
+    "bbox": [
+      818,
+      265,
+      829,
+      356
+    ],
+    "confidence": 0.9328107237815857,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2738,
+      544,
+      2761,
+      563
+    ],
+    "confidence": 0.9327626824378967,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      400,
+      501,
+      420,
+      522
+    ],
+    "confidence": 0.9326729774475098,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      859,
+      279,
+      875,
+      357
+    ],
+    "confidence": 0.9326385259628296,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1896,
+      528,
+      1916,
+      548
+    ],
+    "confidence": 0.9322811365127563,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1447,
+      767,
+      1457,
+      848
+    ],
+    "confidence": 0.9322417974472046,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1240,
+      249,
+      1262,
+      268
+    ],
+    "confidence": 0.9320241808891296,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      477,
+      705,
+      487,
+      795
+    ],
+    "confidence": 0.931981086730957,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1812,
+      735,
+      1834,
+      752
+    ],
+    "confidence": 0.9316689968109131,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2194,
+      747,
+      2216,
+      764
+    ],
+    "confidence": 0.9315903782844543,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1692,
+      471,
+      1711,
+      490
+    ],
+    "confidence": 0.93157559633255,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1227,
+      862,
+      1248,
+      881
+    ],
+    "confidence": 0.9314673542976379,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1124,
+      695,
+      1135,
+      768
+    ],
+    "confidence": 0.9311482906341553,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2639,
+      293,
+      2652,
+      355
+    ],
+    "confidence": 0.9310108423233032,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1796,
+      227,
+      1815,
+      250
+    ],
+    "confidence": 0.930706262588501,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2999,
+      499,
+      3019,
+      518
+    ],
+    "confidence": 0.9306650161743164,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      906,
+      278,
+      926,
+      295
+    ],
+    "confidence": 0.9306079745292664,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2517,
+      348,
+      2648,
+      363
+    ],
+    "confidence": 0.9304655194282532,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2752,
+      325,
+      2762,
+      397
+    ],
+    "confidence": 0.9300762414932251,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2064,
+      339,
+      2274,
+      364
+    ],
+    "confidence": 0.9294797778129578,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      593,
+      515,
+      616,
+      535
+    ],
+    "confidence": 0.9293217062950134,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      740,
+      561,
+      748,
+      633
+    ],
+    "confidence": 0.9292933940887451,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3098,
+      248,
+      3119,
+      267
+    ],
+    "confidence": 0.9290987849235535,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      608,
+      249,
+      631,
+      267
+    ],
+    "confidence": 0.9287570714950562,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      920,
+      750,
+      938,
+      767
+    ],
+    "confidence": 0.9286953806877136,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3211,
+      252,
+      3232,
+      271
+    ],
+    "confidence": 0.9285060167312622,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      405,
+      704,
+      415,
+      779
+    ],
+    "confidence": 0.9284417033195496,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      355,
+      482,
+      377,
+      505
+    ],
+    "confidence": 0.9281858801841736,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2280,
+      516,
+      2289,
+      612
+    ],
+    "confidence": 0.9281772375106812,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2477,
+      250,
+      2496,
+      268
+    ],
+    "confidence": 0.9280163645744324,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1175,
+      472,
+      1188,
+      610
+    ],
+    "confidence": 0.9279429316520691,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2867,
+      388,
+      2891,
+      406
+    ],
+    "confidence": 0.9276431202888489,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      566,
+      809,
+      582,
+      828
+    ],
+    "confidence": 0.9276421070098877,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1579,
+      501,
+      1590,
+      611
+    ],
+    "confidence": 0.9275349974632263,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2601,
+      295,
+      2624,
+      314
+    ],
+    "confidence": 0.9275131821632385,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1580,
+      482,
+      1603,
+      502
+    ],
+    "confidence": 0.9272237420082092,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      871,
+      765,
+      889,
+      782
+    ],
+    "confidence": 0.9268311858177185,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2154,
+      695,
+      2176,
+      710
+    ],
+    "confidence": 0.9266834259033203,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1499,
+      721,
+      1520,
+      738
+    ],
+    "confidence": 0.9266642928123474,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      351,
+      598,
+      594,
+      616
+    ],
+    "confidence": 0.9266383051872253,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      444,
+      513,
+      466,
+      534
+    ],
+    "confidence": 0.9263660907745361,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      464,
+      793,
+      483,
+      810
+    ],
+    "confidence": 0.9262720942497253,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3155,
+      266,
+      3178,
+      282
+    ],
+    "confidence": 0.9259612560272217,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1216,
+      581,
+      1275,
+      634
+    ],
+    "confidence": 0.9252899885177612,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1603,
+      714,
+      1620,
+      727
+    ],
+    "confidence": 0.924958348274231,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1539,
+      533,
+      1546,
+      613
+    ],
+    "confidence": 0.9248741865158081,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      702,
+      789,
+      722,
+      812
+    ],
+    "confidence": 0.9245765209197998,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3219,
+      532,
+      3232,
+      595
+    ],
+    "confidence": 0.9245073199272156,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      522,
+      705,
+      532,
+      871
+    ],
+    "confidence": 0.9243413805961609,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2056,
+      466,
+      2100,
+      476
+    ],
+    "confidence": 0.92418372631073,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      520,
+      242,
+      540,
+      260
+    ],
+    "confidence": 0.924066960811615,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2491,
+      543,
+      2510,
+      561
+    ],
+    "confidence": 0.9239996075630188,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      405,
+      366,
+      426,
+      389
+    ],
+    "confidence": 0.9239508509635925,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1484,
+      235,
+      1493,
+      310
+    ],
+    "confidence": 0.9238168597221375,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1182,
+      244,
+      1192,
+      359
+    ],
+    "confidence": 0.923816442489624,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3064,
+      279,
+      3084,
+      300
+    ],
+    "confidence": 0.923746645450592,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2533,
+      686,
+      2541,
+      740
+    ],
+    "confidence": 0.9232907295227051,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2425,
+      282,
+      2436,
+      336
+    ],
+    "confidence": 0.9232607483863831,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2054,
+      678,
+      2075,
+      703
+    ],
+    "confidence": 0.9228420853614807,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      445,
+      704,
+      454,
+      764
+    ],
+    "confidence": 0.9224419593811035,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2389,
+      281,
+      2410,
+      299
+    ],
+    "confidence": 0.9220430254936218,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2236,
+      278,
+      2258,
+      296
+    ],
+    "confidence": 0.922012209892273,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      352,
+      503,
+      360,
+      616
+    ],
+    "confidence": 0.9217891097068787,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1235,
+      267,
+      1246,
+      357
+    ],
+    "confidence": 0.9216048717498779,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1127,
+      263,
+      1146,
+      282
+    ],
+    "confidence": 0.9213257431983948,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      398,
+      519,
+      405,
+      605
+    ],
+    "confidence": 0.9213240742683411,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3095,
+      265,
+      3104,
+      355
+    ],
+    "confidence": 0.9211462140083313,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      344,
+      266,
+      374,
+      364
+    ],
+    "confidence": 0.92094886302948,
+    "class_id": 40,
+    "class_name": "time_signature"
+  },
+  {
+    "bbox": [
+      1062,
+      733,
+      1083,
+      752
+    ],
+    "confidence": 0.9207385778427124,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      869,
+      263,
+      890,
+      280
+    ],
+    "confidence": 0.9206047058105469,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      706,
+      226,
+      724,
+      248
+    ],
+    "confidence": 0.9203965067863464,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      626,
+      725,
+      634,
+      843
+    ],
+    "confidence": 0.9201817512512207,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      433,
+      763,
+      451,
+      781
+    ],
+    "confidence": 0.9201713800430298,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1486,
+      606,
+      1731,
+      621
+    ],
+    "confidence": 0.9195384383201599,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      358,
+      748,
+      375,
+      767
+    ],
+    "confidence": 0.9194791913032532,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      439,
+      527,
+      448,
+      604
+    ],
+    "confidence": 0.9192090630531311,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2683,
+      731,
+      2705,
+      792
+    ],
+    "confidence": 0.9191945195198059,
+    "class_id": 14,
+    "class_name": "natural"
+  },
+  {
+    "bbox": [
+      3072,
+      559,
+      3081,
+      629
+    ],
+    "confidence": 0.9188576340675354,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1500,
+      288,
+      1507,
+      365
+    ],
+    "confidence": 0.9186694025993347,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      775,
+      351,
+      997,
+      367
+    ],
+    "confidence": 0.9185619354248047,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1099,
+      585,
+      1118,
+      606
+    ],
+    "confidence": 0.918194055557251,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1280,
+      296,
+      1289,
+      356
+    ],
+    "confidence": 0.9172511100769043,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1106,
+      765,
+      1128,
+      783
+    ],
+    "confidence": 0.9168621897697449,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1286,
+      281,
+      1305,
+      297
+    ],
+    "confidence": 0.9167520999908447,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3143,
+      574,
+      3222,
+      595
+    ],
+    "confidence": 0.9165099859237671,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      947,
+      263,
+      968,
+      284
+    ],
+    "confidence": 0.9163979887962341,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2886,
+      316,
+      2895,
+      388
+    ],
+    "confidence": 0.9163144826889038,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1909,
+      231,
+      1930,
+      251
+    ],
+    "confidence": 0.9155536890029907,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3154,
+      280,
+      3161,
+      362
+    ],
+    "confidence": 0.915424644947052,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1486,
+      559,
+      1493,
+      620
+    ],
+    "confidence": 0.9149847626686096,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1684,
+      275,
+      1691,
+      355
+    ],
+    "confidence": 0.9133181571960449,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      758,
+      786,
+      766,
+      837
+    ],
+    "confidence": 0.9130452871322632,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1907,
+      250,
+      1916,
+      309
+    ],
+    "confidence": 0.9123409390449524,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1197,
+      698,
+      1208,
+      772
+    ],
+    "confidence": 0.9121890068054199,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3254,
+      256,
+      3264,
+      330
+    ],
+    "confidence": 0.9121027588844299,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      521,
+      257,
+      529,
+      344
+    ],
+    "confidence": 0.9120209217071533,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1556,
+      689,
+      1577,
+      711
+    ],
+    "confidence": 0.9119142293930054,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2317,
+      528,
+      2327,
+      621
+    ],
+    "confidence": 0.911605954170227,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2270,
+      306,
+      2280,
+      364
+    ],
+    "confidence": 0.9115935564041138,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2595,
+      310,
+      2603,
+      353
+    ],
+    "confidence": 0.9106311202049255,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      813,
+      517,
+      821,
+      617
+    ],
+    "confidence": 0.9105729460716248,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2998,
+      516,
+      3004,
+      574
+    ],
+    "confidence": 0.9104045033454895,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1933,
+      696,
+      1957,
+      712
+    ],
+    "confidence": 0.9099423289299011,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      662,
+      281,
+      701,
+      297
+    ],
+    "confidence": 0.9093320369720459,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1284,
+      478,
+      1304,
+      491
+    ],
+    "confidence": 0.9091845154762268,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      869,
+      782,
+      876,
+      841
+    ],
+    "confidence": 0.9085138440132141,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1926,
+      711,
+      1968,
+      718
+    ],
+    "confidence": 0.9084967374801636,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      489,
+      547,
+      498,
+      600
+    ],
+    "confidence": 0.9082140922546387,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2553,
+      293,
+      2563,
+      352
+    ],
+    "confidence": 0.9073106646537781,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2588,
+      624,
+      2608,
+      646
+    ],
+    "confidence": 0.9067792892456055,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1130,
+      279,
+      1138,
+      364
+    ],
+    "confidence": 0.9056900143623352,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2981,
+      259,
+      2995,
+      376
+    ],
+    "confidence": 0.9056864976882935,
+    "class_id": 69,
+    "class_name": "thick_barline"
+  },
+  {
+    "bbox": [
+      1149,
+      750,
+      1169,
+      768
+    ],
+    "confidence": 0.9050588607788086,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3058,
+      299,
+      3068,
+      379
+    ],
+    "confidence": 0.9049264192581177,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3139,
+      542,
+      3149,
+      604
+    ],
+    "confidence": 0.9048413038253784,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2768,
+      580,
+      2778,
+      641
+    ],
+    "confidence": 0.9039895534515381,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1341,
+      454,
+      1362,
+      476
+    ],
+    "confidence": 0.9037882089614868,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2518,
+      278,
+      2526,
+      356
+    ],
+    "confidence": 0.9036354422569275,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      415,
+      293,
+      422,
+      363
+    ],
+    "confidence": 0.9033647179603577,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      535,
+      561,
+      543,
+      600
+    ],
+    "confidence": 0.9033446311950684,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1754,
+      779,
+      1761,
+      846
+    ],
+    "confidence": 0.9032436609268188,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1173,
+      454,
+      1194,
+      470
+    ],
+    "confidence": 0.9032292366027832,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      902,
+      293,
+      911,
+      357
+    ],
+    "confidence": 0.9031244516372681,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      372,
+      698,
+      577,
+      708
+    ],
+    "confidence": 0.9029297828674316,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      985,
+      451,
+      1009,
+      466
+    ],
+    "confidence": 0.9019671082496643,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      967,
+      464,
+      1022,
+      473
+    ],
+    "confidence": 0.9008222222328186,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      910,
+      490,
+      919,
+      586
+    ],
+    "confidence": 0.9005585312843323,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1925,
+      615,
+      1934,
+      653
+    ],
+    "confidence": 0.8994387984275818,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2138,
+      708,
+      2188,
+      716
+    ],
+    "confidence": 0.8987686038017273,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2133,
+      893,
+      2377,
+      906
+    ],
+    "confidence": 0.8987630605697632,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1964,
+      219,
+      1986,
+      234
+    ],
+    "confidence": 0.8987090587615967,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2489,
+      559,
+      2498,
+      610
+    ],
+    "confidence": 0.8984557390213013,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1546,
+      696,
+      1590,
+      704
+    ],
+    "confidence": 0.8984233736991882,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2948,
+      506,
+      2958,
+      549
+    ],
+    "confidence": 0.898306667804718,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2427,
+      310,
+      2469,
+      324
+    ],
+    "confidence": 0.8978300094604492,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2664,
+      551,
+      2671,
+      615
+    ],
+    "confidence": 0.8975629210472107,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2308,
+      867,
+      2329,
+      883
+    ],
+    "confidence": 0.8974449038505554,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      3213,
+      269,
+      3221,
+      341
+    ],
+    "confidence": 0.8973662257194519,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1238,
+      461,
+      1257,
+      481
+    ],
+    "confidence": 0.897331714630127,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      499,
+      854,
+      549,
+      865
+    ],
+    "confidence": 0.8966040015220642,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2863,
+      381,
+      2903,
+      389
+    ],
+    "confidence": 0.8951255083084106,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      368,
+      702,
+      377,
+      750
+    ],
+    "confidence": 0.8937200307846069,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1953,
+      231,
+      1994,
+      240
+    ],
+    "confidence": 0.8922171592712402,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      1187,
+      223,
+      1208,
+      245
+    ],
+    "confidence": 0.8897594213485718,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      469,
+      266,
+      478,
+      307
+    ],
+    "confidence": 0.8893762826919556,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      991,
+      323,
+      998,
+      354
+    ],
+    "confidence": 0.8889395594596863,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1165,
+      468,
+      1206,
+      478
+    ],
+    "confidence": 0.8878674507141113,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      923,
+      765,
+      930,
+      816
+    ],
+    "confidence": 0.8865881562232971,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      657,
+      257,
+      664,
+      307
+    ],
+    "confidence": 0.8865000009536743,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2735,
+      561,
+      2745,
+      628
+    ],
+    "confidence": 0.88636314868927,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2302,
+      862,
+      2342,
+      868
+    ],
+    "confidence": 0.8863340020179749,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      1754,
+      841,
+      2031,
+      852
+    ],
+    "confidence": 0.8862715363502502,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1645,
+      452,
+      1664,
+      476
+    ],
+    "confidence": 0.8852227330207825,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      685,
+      590,
+      692,
+      653
+    ],
+    "confidence": 0.88469398021698,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2228,
+      610,
+      2432,
+      622
+    ],
+    "confidence": 0.8841680288314819,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1220,
+      857,
+      1268,
+      865
+    ],
+    "confidence": 0.8839883804321289,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      1101,
+      571,
+      1215,
+      641
+    ],
+    "confidence": 0.8835418820381165,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1268,
+      493,
+      1283,
+      583
+    ],
+    "confidence": 0.8833296298980713,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2381,
+      297,
+      2389,
+      357
+    ],
+    "confidence": 0.8823333382606506,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1397,
+      801,
+      1406,
+      862
+    ],
+    "confidence": 0.88216233253479,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1787,
+      232,
+      1824,
+      240
+    ],
+    "confidence": 0.8820982575416565,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      927,
+      795,
+      970,
+      808
+    ],
+    "confidence": 0.8813851475715637,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2404,
+      587,
+      2412,
+      622
+    ],
+    "confidence": 0.8809914588928223,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1640,
+      702,
+      1684,
+      710
+    ],
+    "confidence": 0.8776102066040039,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      3032,
+      325,
+      3038,
+      385
+    ],
+    "confidence": 0.875377357006073,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      701,
+      247,
+      710,
+      296
+    ],
+    "confidence": 0.8749203085899353,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1085,
+      689,
+      1215,
+      700
+    ],
+    "confidence": 0.8743873238563538,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1339,
+      223,
+      1359,
+      238
+    ],
+    "confidence": 0.8707583546638489,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2891,
+      516,
+      2900,
+      577
+    ],
+    "confidence": 0.8675926923751831,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1473,
+      195,
+      1482,
+      251
+    ],
+    "confidence": 0.8674471974372864,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1457,
+      154,
+      1499,
+      188
+    ],
+    "confidence": 0.8672782778739929,
+    "class_id": 45,
+    "class_name": "trill"
+  },
+  {
+    "bbox": [
+      1216,
+      353,
+      1332,
+      369
+    ],
+    "confidence": 0.8669243454933167,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2575,
+      633,
+      2625,
+      639
+    ],
+    "confidence": 0.8639692068099976,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2524,
+      783,
+      2530,
+      841
+    ],
+    "confidence": 0.8634978532791138,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      3216,
+      311,
+      3257,
+      329
+    ],
+    "confidence": 0.8631640672683716,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1089,
+      353,
+      1215,
+      377
+    ],
+    "confidence": 0.8622544407844543,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2002,
+      697,
+      2024,
+      721
+    ],
+    "confidence": 0.8622124195098877,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1912,
+      290,
+      1957,
+      300
+    ],
+    "confidence": 0.8615683913230896,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      695,
+      233,
+      734,
+      242
+    ],
+    "confidence": 0.861291766166687,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      1329,
+      234,
+      1371,
+      243
+    ],
+    "confidence": 0.8609253764152527,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      1329,
+      461,
+      1376,
+      469
+    ],
+    "confidence": 0.8587691187858582,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2619,
+      727,
+      2627,
+      847
+    ],
+    "confidence": 0.8567810654640198,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      2827,
+      289,
+      2833,
+      347
+    ],
+    "confidence": 0.8557268381118774,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1742,
+      238,
+      1750,
+      276
+    ],
+    "confidence": 0.852387011051178,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1225,
+      467,
+      1268,
+      475
+    ],
+    "confidence": 0.8518706560134888,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2072,
+      223,
+      2091,
+      243
+    ],
+    "confidence": 0.8511117100715637,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2468,
+      272,
+      2479,
+      327
+    ],
+    "confidence": 0.8461446762084961,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2047,
+      687,
+      2082,
+      693
+    ],
+    "confidence": 0.8410330414772034,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2047,
+      705,
+      2085,
+      712
+    ],
+    "confidence": 0.8406481146812439,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      703,
+      812,
+      710,
+      860
+    ],
+    "confidence": 0.84052973985672,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1633,
+      460,
+      1683,
+      468
+    ],
+    "confidence": 0.8399927020072937,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      507,
+      867,
+      527,
+      889
+    ],
+    "confidence": 0.8399608731269836,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      1078,
+      691,
+      1087,
+      737
+    ],
+    "confidence": 0.83812016248703,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2063,
+      230,
+      2105,
+      237
+    ],
+    "confidence": 0.8318999409675598,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      1216,
+      684,
+      1321,
+      707
+    ],
+    "confidence": 0.8272251486778259,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      3032,
+      372,
+      3062,
+      387
+    ],
+    "confidence": 0.8215085864067078,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2304,
+      877,
+      2312,
+      906
+    ],
+    "confidence": 0.8164063692092896,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1099,
+      603,
+      1108,
+      639
+    ],
+    "confidence": 0.8151354789733887,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      1176,
+      230,
+      1213,
+      238
+    ],
+    "confidence": 0.814854085445404,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      1990,
+      707,
+      2039,
+      715
+    ],
+    "confidence": 0.7980989813804626,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  },
+  {
+    "bbox": [
+      2264,
+      892,
+      2377,
+      906
+    ],
+    "confidence": 0.7698555588722229,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      2381,
+      282,
+      2431,
+      358
+    ],
+    "confidence": 0.761603593826294,
+    "class_id": 3,
+    "class_name": "beam"
+  },
+  {
+    "bbox": [
+      1180,
+      421,
+      1215,
+      454
+    ],
+    "confidence": 0.7259544134140015,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      1648,
+      691,
+      1671,
+      706
+    ],
+    "confidence": 0.7231407165527344,
+    "class_id": 0,
+    "class_name": "notehead-full"
+  },
+  {
+    "bbox": [
+      2969,
+      260,
+      2980,
+      373
+    ],
+    "confidence": 0.7198745012283325,
+    "class_id": 4,
+    "class_name": "thin_barline"
+  },
+  {
+    "bbox": [
+      1163,
+      694,
+      1170,
+      753
+    ],
+    "confidence": 0.7097229957580566,
+    "class_id": 1,
+    "class_name": "stem"
+  },
+  {
+    "bbox": [
+      2599,
+      796,
+      2605,
+      803
+    ],
+    "confidence": 0.6814394593238831,
+    "class_id": 34,
+    "class_name": "repeat-dot"
+  },
+  {
+    "bbox": [
+      1194,
+      197,
+      1215,
+      226
+    ],
+    "confidence": 0.6258689761161804,
+    "class_id": 6,
+    "class_name": "slur"
+  },
+  {
+    "bbox": [
+      503,
+      871,
+      540,
+      880
+    ],
+    "confidence": 0.62400221824646,
+    "class_id": 2,
+    "class_name": "ledger_line"
+  }
+]

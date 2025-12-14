@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{Alfaro_Contreras_2023}
+María Alfaro-Contreras, José~M. Iñesta, and Jorge Calvo-Zaragoza.
+\newblock Optical music recognition for homophonic scores with neural networks
+  and synthetic music generation.
+\newblock {\em International Journal of Multimedia Information Retrieval},
+  12(1):12, May 2023.
+
+\bibitem{Calvo_Zaragoza_2020}
+Jorge Calvo-Zaragoza, Jan~Hajič Jr., and Alexander Pacha.
+\newblock Understanding optical music recognition.
+\newblock {\em ACM Computing Surveys}, 53(4):1–35, July 2020.
+
+\bibitem{Mayer_2024}
+Jiří Mayer, Milan Straka, Jan Hajič, and Pavel Pecina.
+\newblock {\em Practical End-to-End Optical Music Recognition for Pianoform
+  Music}, page 55–73.
+\newblock Springer Nature Switzerland, 2024.
+
+\bibitem{yang2024completeomrsolution}
+Guang Yang, Muru Zhang, Lin Qiu, Yanming Wan, and Noah~A. Smith.
+\newblock Toward a more complete omr solution, 2024.
+
+\end{thebibliography}
