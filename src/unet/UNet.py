@@ -482,9 +482,9 @@ def main() -> None:
     # Check if this is an old model trained with incorrect binarize logic
     checkpoint_args = checkpoint.get("args", {})
     if "binarize_fixed" not in checkpoint_args:
-        print("[WARNING] ⚠️  这个模型可能是在修复 binarize 逻辑之前训练的！")
-        print("[WARNING] ⚠️  如果输出结果不正确，请使用修复后的代码重新训练模型。")
-        print("[WARNING] ⚠️  建议使用 --save-mask 查看预测的 mask 分布来诊断问题。")
+        print("[WARNING] ⚠️  This model may have been trained before the binarize logic fix!")
+        print("[WARNING] ⚠️  If output results are incorrect, please retrain the model with the fixed code.")
+        print("[WARNING] ⚠️  It is recommended to use --save-mask to view the predicted mask distribution for diagnosis.")
     
     model = UNet(
         n_channels=1,
@@ -526,9 +526,9 @@ def main() -> None:
         unique, counts = np.unique(pred_mask, return_counts=True)
         total = pred_mask.size
         print(f"   [DEBUG] Predicted mask distribution:")
-        class_names = {0: "背景", 1: "五线", 2: "音符"}
+        class_names = {0: "background", 1: "staff", 2: "note"}
         for val, cnt in zip(unique, counts):
-            print(f"      class {val} ({class_names.get(val, '未知'):4s}): {cnt:8d} 像素 ({cnt*100/total:5.2f}%)")
+            print(f"      class {val} ({class_names.get(val, 'unknown'):9s}): {cnt:8d} pixels ({cnt*100/total:5.2f}%)")
         
         # Apply staff removal
         clean_image = apply_staff_removal(original_image, pred_mask)

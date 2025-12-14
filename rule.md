@@ -45,7 +45,7 @@ Determine which staff lines belong to the same time segment (same system).
 #### Priority 2: Measure Separator-Based Clustering [Second Priority]
 * Iterate through all symbols with `class_name` = `measure_separator` (vertical lines connecting staves)
 * If a `measure_separator`:
-  * Top端接触 $l_a$ and bottom touches $l_b$
+  * Top touches $l_a$ and bottom touches $l_b$
   * Then $l_a$, $l_b$, and all lines between them belong to the same **System Group**
 
 #### Fallback: Ungrouped Lines
@@ -216,6 +216,31 @@ Key signatures typically appear after clef and before time signature.
 * Found: Update current measure's key signature
 * Not found: Inherit from previous measure
 
+#### Key Signature Application Rule
+Once a key signature is detected, it **persists and applies to all subsequent measures** until a new key signature is detected.
+
+**Application Logic**:
+1. **Convert Key Signature String to Note Mapping**:
+   * Sharps follow circle of fifths order: F, C, G, D, A, E, B
+     * "1#" → F sharp
+     * "2#" → F, C sharp
+     * "3#" → F, C, G sharp
+   * Flats follow reverse circle of fifths order: B, E, A, D, G, C, F
+     * "1b" → B flat
+     * "2b" → B, E flat
+     * "3b" → B, E, A flat
+
+2. **Apply to Pitch Calculation**:
+   * For each note in all subsequent measures:
+     * Calculate base pitch from geometric position (ignoring accidentals)
+     * If note has **local accidental** (temporary sharp/flat/natural): Apply local accidental (overrides key signature)
+     * If note has **no local accidental**: Apply key signature accidental for that note name
+     * Result: Pitch name includes accidental from key signature (e.g., "F#4" if key has F sharp)
+
+3. **Priority Order**:
+   * **Highest Priority**: Local accidental (temporary sharp/flat/natural) - overrides key signature
+   * **Lower Priority**: Key signature accidental - applies if no local accidental present
+
 ### Rule 10: Time Signature Detection
 
 1. **Search for**:
@@ -373,9 +398,14 @@ Detects implicit triplets based on measure duration overflow.
 #### Accidental Application
 
 1. **Calculate Base Pitch**: First, determine visual natural pitch (ignoring accidentals)
-2. **Apply Local Accidentals**: If notehead has associated `sharp`, `flat`, or `natural`, apply it
-3. **Apply Key Signature**: If no local accidental, apply key signature's accidental for this note name
-4. **Final Pitch**: Combine note name, accidental, and octave (e.g., "F#4", "Bb3")
+2. **Priority Check**: Check if notehead has a **local accidental** (temporary sharp/flat/natural symbol)
+3. **Apply Accidentals** (in priority order):
+   * **If local accidental exists**: Apply local accidental (overrides key signature)
+   * **If no local accidental**: Apply key signature's accidental for this note name (if key signature is active)
+4. **Key Signature Persistence**: Once a key signature is detected, it applies to **all subsequent measures** until changed
+   * Key signature affects all notes with the same note name (e.g., all F notes become F# if key has F sharp)
+   * Key signature persists across measure boundaries automatically
+5. **Final Pitch**: Combine note name, accidental, and octave (e.g., "F#4", "Bb3")
 
 ---
 

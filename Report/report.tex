@@ -22,7 +22,7 @@
 
 % Title Information
 \title{\textbf{A Handwritten Music Recognition System Based on Visual Object Detection and semantic Assembly}}
-\author{Yuguang Yao \quad Second Author}
+\author{Yuguang Yao \quad Hok Seng}
 \date{\today}
 
 \begin{document}
@@ -158,101 +158,43 @@ The MLP outputs a probability score $P(u \to v) \in [0, 1]$ indicating the likel
 \textbf{Results}: The MLP Linker achieves a \textbf{Match+AUC score of 0.86} on the test set, demonstrating that our model effectively learns the geometric and semantic patterns of symbol relationships. It successfully filters out valid connections from the quadratic number of possible pairs. The conceptual "overfitting" ensures that for the limited vocabulary of a single page, the connectivity is robust.
 
 \subsection{Semantic Assembly}
-This module transforms the Notation Graph into a hierarchical \textbf{Score Tree} suitable for MusicXML generation. The assembly pipeline consists of six sequential phases that progressively build musical structure from geometric primitives.
+This module transforms the Notation Graph into a hierarchical \textbf{Score Tree} for MusicXML generation. The assembly pipeline consists of six sequential phases.
 
-\subsubsection{Phase 1: System \& Staff Grouping}
-\textbf{Goal}: Partition staff lines $L = \{l_1, l_2, ...\}$ into \textit{Systems} (musical rows) and assign \textit{Part} IDs (voices).
+\subsubsection{System \& Staff Grouping}
+We first partition staff lines into \textit{Systems} (musical rows) using a priority-based strategy: symbols like \texttt{brace} or \texttt{measure\_separator} group vertically overlapping staves ($Overlap_Y > 0.5$). Within each system, staves are sorted top-to-bottom and assigned sequential Part IDs.
 
-\textbf{Staff Clustering}: We apply a priority-based grouping strategy:
-\begin{enumerate}
-    \item \textbf{Brace/Bracket Detection} [Highest Priority]: For each symbol $g$ with class \texttt{multi-staff\_brace} or \texttt{staff\_grouping}, identify all staff lines $l_i$ where the Y-axis overlap ratio $Overlap_Y(g, l_i) > 0.5$. Group these lines into a single System.
-    \item \textbf{Measure Separator Detection}: For \texttt{measure\_separator} symbols spanning multiple staves vertically, group all touched staff lines.
-    \item \textbf{Fallback}: Ungrouped staff lines become independent single-staff Systems.
-\end{enumerate}
+\subsubsection{Measure Slicing}
+To segment time horizontally, we detect barlines using geometric validation (aspect ratio $< 0.3$, minimum height $\geq 20$px). Since detection may produce slightly misaligned barlines at the same temporal position, we merge those within threshold $\max(\frac{w_{notehead}}{2}, 15)$ pixels by averaging their X-coordinates. The resulting \textit{Global Barlines} define measure boundaries via bucket sort.
 
-\textbf{Part Indexing}: Within each System, sort staff lines by Y-coordinate (top-to-bottom) and assign sequential Part IDs: $Part\_1, Part\_2, ...$
+\subsubsection{Symbol Assembly}
+Musical notes are constructed by linking primitives. For filled noteheads without overlapping stems, we create \textit{virtual stems}: we search upward/downward for beams or flags, extending the virtual stem to reach them if found, or creating a default-length stem ($3.5 \times line\_spacing$) otherwise. Stem direction is determined by the notehead's position relative to the middle staff line. Each stem connects to all nearby beams/flags within $stem.width$ distance. Dotted notes are detected by searching rightward for \texttt{duration-dot} symbols, multiplying the duration by 1.5.
 
-\subsubsection{Phase 2: Measure Slicing}
-\textbf{Goal}: Horizontally segment each System into Measures using barline positions.
+\subsubsection{Attribute Recognition}
+Musical attributes (clef, key signature, time signature) exhibit \textbf{state persistence}: they remain active until explicitly changed. For each measure, we search for attribute symbols; if absent, we inherit from the previous measure. Key signatures are identified by clustering \texttt{sharp}/\texttt{flat} symbols with spacing $< 1.5 \times note\_width$.
 
-\textbf{Barline Validation}: For each candidate barline symbol, we enforce geometric constraints:
-\begin{itemize}
-    \item Aspect ratio: $width / height < 0.3$ (barlines are narrow)
-    \item Minimum height: $height \geq 20$ pixels
-    \item Staff overlap: Must overlap $\geq 50\%$ of staff system height
-\end{itemize}
+\subsubsection{Tuplet Detection}
+We employ a cascaded rule set with decreasing constraint strength. \textbf{Rule 1} searches for \texttt{tuple\_bracket} symbols covering exactly 3 notes. \textbf{Rule 2} identifies beams linking $3k$ stems with a \texttt{numeral\_3} nearby, excluding finger numbers (vertically aligned above a single note). \textbf{Rule 3} uses Euclidean distance to find the 3 closest notes to isolated \texttt{numeral\_3} symbols. \textbf{Rule 4} applies the triplet modification: $duration_{xml} = base\_duration \times \frac{2}{3}$. \textbf{Rule 5} serves as a fallback sanity check: if the measure duration exceeds the time signature, we search for groups of 3 identical-duration notes that would fix the overflow.
 
-\textbf{X-Axis Projection Fusion}: Due to detection noise, barlines at the same temporal position may have slightly different X-coordinates. We merge barlines where $|x_i - x_j| < \max(\frac{w_{notehead}}{2}, 15)$ pixels, averaging their X-positions to define \textit{Global Barlines}.
-
-\textbf{Bucket Sort}: Based on Global Barline positions $(x_1, x_2, ..., x_n)$, symbols are partitioned into measures: symbols with $x_i \leq x_{center} < x_{i+1}$ belong to Measure $i$.
-
-\subsubsection{Phase 3: Symbol Assembly (Note Construction)}
-\textbf{Goal}: Link noteheads, stems, beams, flags, dots, and accidentals into complete note objects.
-
-\textbf{Notehead-to-Stem Linking}: For each notehead:
-\begin{itemize}
-    \item \textbf{Filled Noteheads} (\texttt{notehead-full}): 
-    \begin{enumerate}
-        \item If overlapping stem found, link to it.
-        \item Otherwise, create a \textit{virtual stem}: Search upward/downward for beams/flags within half the inter-system distance. If found, extend virtual stem to reach them. If not, create default-length stem ($3.5 \times line\_spacing$) with direction determined by notehead position relative to middle staff line.
-    \end{enumerate}
-    \item \textbf{Other Noteheads}: Link to overlapping stem or nearest stem.
-\end{itemize}
-
-\textbf{Stem-to-Beam/Flag Linking}: For each stem, find all beams/flags within $stem.width$ distance. Return ALL qualifying beams/flags (not just the first).
-
-\textbf{Dot Detection}: For each notehead, search rightward for \texttt{duration-dot} within distance thresholds ($\Delta x < 30px$, $\Delta y < 30px$). If found, multiply duration by 1.5.
-
-\subsubsection{Phase 4: Attribute Recognition}
-\textbf{State Persistence Principle}: Musical attributes (clef, key, time signature) are inherited from previous measures unless explicitly changed.
-
-\textbf{Clef Detection}: Search for \texttt{g-clef}, \texttt{f-clef}, \texttt{c-clef}. If found, update; if absent, inherit. First measure defaults: Part 1 = Treble, Part 2 = Bass.
-
-\textbf{Key Signature}: Count \texttt{sharp}/\texttt{flat} symbols in the region right of clef, left of time signature. Cluster symbols with $\Delta x < 1.5 \times note\_width$ as a single key signature group.
-
-\textbf{Time Signature}: Detect \texttt{time\_signature} label or vertical digit stacks (e.g., \texttt{numeral\_3} above \texttt{numeral\_4} indicates 3/4).
-
-\subsubsection{Phase 5: Tuplet Detection}
-We employ a \textit{cascaded rule set} with decreasing constraint strength:
-
-\textbf{Rule 1 - Bracket-Based} [Highest Priority]: For each \texttt{tuple\_bracket}, find notes whose notehead centers fall within bracket's X-range $[x_{start}, x_{end}]$. Filter out notes with vertical distance $> 1.5 \times staff\_height$. If exactly 3 notes remain, mark as triplet (even without \texttt{numeral\_3}).
-
-\textbf{Rule 2 - Beam-Based}: For beams linking $3k$ stems (where $k \in \mathbb{N}$), search for \texttt{numeral\_3} within radius $3 \times line\_spacing$ of beam center. \textit{Finger Number Exclusion}: Reject if \texttt{numeral\_3} is vertically aligned above a single notehead (likely a finger number). Accept if centered over the note group.
-
-\textbf{Rule 3 - Numeral-3-Centered}: For each unused \texttt{numeral\_3} (excluding time signature digits), compute Euclidean distances to all notes within radius $6 \times line\_spacing$. Select the 3 closest notes. Apply finger number exclusion logic.
-
-\textbf{Rule 4 - Tuplet Modification}: For confirmed triplet group $G = \{n_1, n_2, n_3\}$:
-\begin{itemize}
-    \item Set $duration_{xml} = base\_duration \times \frac{2}{3}$
-    \item MusicXML tags: $n_1$ gets \texttt{<tuplet type="start"/>}, $n_3$ gets \texttt{<tuplet type="stop"/>}
-\end{itemize}
-
-\textbf{Rule 5 - Sanity Check} [Fallback]: If $\sum note.duration > time\_signature\_duration + tolerance$, search for consecutive 3-note groups with identical \texttt{base\_duration}. If converting to triplet fixes the overflow and no \texttt{numeral\_3} exists in that region, force conversion with low confidence.
-
-\subsubsection{Phase 6: Pitch Determination}
-\textbf{Algorithm}: Given notehead at Y-position $y_{note}$ and staff lines $\{y_0, y_1, ..., y_4\}$ (top to bottom):
-
-\begin{enumerate}
-    \item Find closest staff line $y_{closest}$ and its index $i_{closest}$.
-    \item Calculate half-spacing: $h = median(\{y_{i+1} - y_i\}) / 2$
-    \item Compute steps from top line: $steps = i_{closest} \times 2 + \frac{y_{note} - y_{closest}}{h}$
-    \item Round to nearest 0.5 (half-step precision).
-    \item Map to diatonic scale using clef-specific reference:
-    \begin{itemize}
-        \item Treble Clef: Top line = F5
-        \item Bass Clef: Top line = A3
-        \item Alto Clef: Top line = G4
-    \end{itemize}
-    \item Apply local accidentals, then key signature accidentals.
-\end{enumerate}
-
-\textbf{Example}: In Treble Clef, if $steps = 2.0$, starting from F5, move down 2 diatonic steps: F5 $\to$ E5 $\to$ D5.
+\subsubsection{Pitch Determination}
+Pitch is calculated from the notehead's vertical position. We find the closest staff line, compute the step distance using half-spacing $h = median(\Delta y_{lines}) / 2$, and apply the formula:
+$$steps = i_{closest} \times 2 + \frac{y_{note} - y_{closest}}{h}$$
+This value is mapped to a diatonic pitch using clef-specific references (Treble: top line = F5; Bass: A3; Alto: G4). Accidentals are then applied to adjust the base pitch.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.45\textwidth]{p009_reproduced/05_assembled_links.jpg}
-    \caption{Semantic assembly result showing reconstructed relationships between musical symbols.}
-    \label{fig:semantic_assembly}
+    \begin{minipage}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{p009_reproduced/05_assembled_links.jpg}
+        \caption{Semantic assembly result showing reconstructed relationships between musical symbols.}
+        \label{fig:semantic_assembly}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{p009_reproduced/06_system_structure.png}
+        \caption{System structure visualization showing grouped staff systems and measure boundaries.}
+        \label{fig:system_structure}
+    \end{minipage}
 \end{figure}
 
 \subsection{MusicXML Generation}
@@ -274,7 +216,7 @@ An improvement direction can be following areas:
 \begin{itemize}
     \item \textbf{improve linker model}: The current linker model shows a high benchmark performance, but less useful in data due to illogical mismatches. And current rule-based reasoning is not enough to handle complex cases. We can try to use small models to help some subprocesses of rule-based reasoning.
     \item \textbf{More Symbol Types}: So far we only consider the essential symbols, we will try to include more symbols to improve the performance.
-    \item \textbf{porbabilitistic and interactive processing}: Here we use yolo to detect the symbols we a threshold, but we can implement an interface that allows users to modify the recognition results with a probability output like Audervis. 
+    \item \textbf{porbabilitistic and interactive processing}: Here we use yolo to detect the symbols with a threshold, but we can implement an interface that allows users to modify the recognition results with a probability output like Audervis. 
 \end{itemize}   
 
 \bibliographystyle{plain}

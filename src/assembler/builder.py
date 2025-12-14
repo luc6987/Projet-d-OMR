@@ -489,7 +489,7 @@ class ScoreBuilder:
                         linked_syms.append(other_sym)
                         linked_pairs.append((sym, other_sym))  # notehead -> other
                     
-                    # Determine Accidental
+                    # Determine Accidental (local accidental takes priority over key signature)
                     accidental = None
                     # 1. Try found links
                     for l in linked_syms:
@@ -507,7 +507,15 @@ class ScoreBuilder:
                                 break
                     
                     # Calculate Pitch (use measure's clef, which may have been updated)
-                    pitch_name = PitchEngine.calculate_pitch(sym.center_y, system.lines, measure.clef)
+                    # Convert key signature string to dict format for pitch calculation
+                    key_signature_dict = None
+                    if measure.key_signature and not accidental:
+                        # Only apply key signature if there's no local accidental
+                        # Local accidentals override key signature
+                        key_signature_dict = PitchEngine.parse_key_signature(measure.key_signature)
+                    
+                    # Apply key signature to pitch calculation
+                    pitch_name = PitchEngine.calculate_pitch(sym.center_y, system.lines, measure.clef, key_signature_dict)
                     
                     # Calculate Duration
                     duration = self._calculate_duration(sym, linked_syms)

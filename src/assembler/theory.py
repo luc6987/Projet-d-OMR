@@ -44,6 +44,54 @@ class PitchEngine:
 
     SCALE = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
     
+    # Order of sharps in key signature (circle of fifths)
+    SHARP_ORDER = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
+    # Order of flats in key signature (circle of fifths, reverse)
+    FLAT_ORDER = ['B', 'E', 'A', 'D', 'G', 'C', 'F']
+    
+    @staticmethod
+    def parse_key_signature(key_str: Optional[str]) -> Dict[str, str]:
+        """
+        Converts key signature string to dictionary mapping note names to accidentals.
+        
+        Args:
+            key_str: Key signature string (e.g., "1#", "3b", "C", "2#")
+                    - "C" or None means no accidentals
+                    - "1#" means F sharp
+                    - "2#" means F and C sharp
+                    - "1b" means B flat
+                    - "3b" means B, E, A flat
+        
+        Returns:
+            Dictionary mapping note names to accidentals (e.g., {'F': 'sharp', 'C': 'sharp'})
+        """
+        if not key_str or key_str == "C":
+            return {}
+        
+        result = {}
+        
+        # Parse sharps (e.g., "1#", "2#", "3#")
+        if '#' in key_str:
+            try:
+                num_sharps = int(key_str.replace('#', ''))
+                for i in range(min(num_sharps, len(PitchEngine.SHARP_ORDER))):
+                    note = PitchEngine.SHARP_ORDER[i]
+                    result[note] = 'sharp'
+            except ValueError:
+                pass
+        
+        # Parse flats (e.g., "1b", "2b", "3b")
+        elif 'b' in key_str:
+            try:
+                num_flats = int(key_str.replace('b', ''))
+                for i in range(min(num_flats, len(PitchEngine.FLAT_ORDER))):
+                    note = PitchEngine.FLAT_ORDER[i]
+                    result[note] = 'flat'
+            except ValueError:
+                pass
+        
+        return result
+    
     @staticmethod
     def calculate_pitch(center_y: float, staff_lines: List[int], clef_type: ClefType = ClefType.G_CLEF,
                        key_signature: Optional[Dict[str, str]] = None) -> str:

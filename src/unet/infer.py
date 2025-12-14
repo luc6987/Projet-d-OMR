@@ -87,9 +87,9 @@ def infer_unet(config: ConfigLoader, path_manager: PathManager) -> None:
     # Check if this is an old model trained with incorrect binarize logic
     checkpoint_args = checkpoint.get("args", {})
     if "binarize_fixed" not in checkpoint_args:
-        logger.warning("⚠️  这个模型可能是在修复 binarize 逻辑之前训练的！")
-        logger.warning("⚠️  如果输出结果不正确，请使用修复后的代码重新训练模型。")
-        logger.warning("⚠️  建议使用 save_mask 查看预测的 mask 分布来诊断问题。")
+        logger.warning("⚠️  This model may have been trained before the binarize logic fix!")
+        logger.warning("⚠️  If output results are incorrect, please retrain the model with the fixed code.")
+        logger.warning("⚠️  It is recommended to use save_mask to view the predicted mask distribution for diagnosis.")
     
     # Create model
     model = UNet(
@@ -128,9 +128,9 @@ def infer_unet(config: ConfigLoader, path_manager: PathManager) -> None:
         unique, counts = np.unique(pred_mask, return_counts=True)
         total = pred_mask.size
         logger.debug(f"Predicted mask distribution:")
-        class_names = {0: "背景", 1: "五线", 2: "音符"}
+        class_names = {0: "background", 1: "staff", 2: "note"}
         for val, cnt in zip(unique, counts):
-            logger.debug(f"  class {val} ({class_names.get(val, '未知'):4s}): {cnt:8d} 像素 ({cnt*100/total:5.2f}%)")
+            logger.debug(f"  class {val} ({class_names.get(val, 'unknown'):9s}): {cnt:8d} pixels ({cnt*100/total:5.2f}%)")
         
         # Apply staff removal
         clean_image = apply_staff_removal(original_image, pred_mask)

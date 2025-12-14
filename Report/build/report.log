@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2025.11.9)  14 DEC 2025 14:41
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2025.11.9)  14 DEC 2025 14:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -507,61 +507,34 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 Underfull \vbox (badness 1297) has occurred while \output is active []
 
- [2]
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
-[]\TU/lmr/bx/n/10 Measure Separator Detection\TU/lmr/m/n/10 : For
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
-\TU/lmtt/m/n/10 measure_separator \TU/lmr/m/n/10 symbols spanning multiple
- []
-
-
-Underfull \hbox (badness 1715) in paragraph at lines 185--186
-\OML/cmm/m/it/10 x[]\OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 < []\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 15)$ \TU/lmr/m/n/10 pixels, averaging their X-
- []
-
-[3]
-Underfull \hbox (badness 1675) in paragraph at lines 222--223
-[]\TU/lmr/bx/n/10 Rule 3 - Numeral-3-Centered\TU/lmr/m/n/10 : For each un-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 230--231
-[]\TU/lmr/bx/n/10 Rule 5 - Sanity Check \TU/lmr/m/n/10 [Fallback]: If
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 230--231
-[] \OML/cmm/m/it/10 note:duration > time[]signature[]duration \OT1/cmr/m/n/10 +
- []
-
-
-Underfull \hbox (badness 1052) in paragraph at lines 230--231
-\OML/cmm/m/it/10 tolerance$\TU/lmr/m/n/10 , search for consecutive 3-note groups with
- []
-
+ [2] [3]
 File: p009_reproduced/05_assembled_links.jpg Graphic file (type bmp)
 <p009_reproduced/05_assembled_links.jpg>
+File: p009_reproduced/06_system_structure.png Graphic file (type bmp)
+<p009_reproduced/06_system_structure.png>
+
+Underfull \hbox (badness 3128) in paragraph at lines 195--195
+[]\TU/lmr/m/n/10 Figure 6: |System structure visualization showing
+ []
+
 File: p009_reproduced/output.pdf Graphic file (type pdf)
 <use p009_reproduced/output.pdf>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4] (build/report.bbl
+(build/report.bbl
 Underfull \hbox (badness 1215) in paragraph at lines 16--20
 []\TU/lmr/m/n/10 Jiří Mayer, Milan Straka, Jan Hajič, and Pavel
  []
 
-) [5] (build/report.aux) ) 
+) [4] (build/report.aux) ) 
 Here is how much of TeX's memory you used:
- 16092 strings out of 478968
- 322764 string characters out of 5868621
- 623395 words of memory out of 5000000
- 35622 multiletter control sequences out of 15000+600000
+ 16099 strings out of 478968
+ 323016 string characters out of 5868621
+ 622403 words of memory out of 5000000
+ 35628 multiletter control sequences out of 15000+600000
  410805 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  87i,9n,89p,1144b,866s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on build/report.pdf (5 pages).
+Output written on build/report.pdf (4 pages).
