@@ -7,6 +7,9 @@ scikit-image
 scikit-learn
 matplotlib
 torch-geometric
+omrdatasettools
+yacs
+tqdm
 
 torch
 music21

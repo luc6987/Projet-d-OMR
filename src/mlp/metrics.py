@@ -6,9 +6,67 @@ import numpy as np
 from tqdm import tqdm
 
 
-def validate_model(model, data_loader, criterion, device, threshold=0.5):
+def find_optimal_threshold(all_outputs, all_labels, metric='f1'):
+    """
+    Find optimal threshold that maximizes the specified metric.
+    
+    Args:
+        all_outputs: numpy array of predicted probabilities
+        all_labels: numpy array of true labels
+        metric: 'f1', 'f2' (recall-weighted), or 'precision_recall_balance'
+    
+    Returns:
+        optimal_threshold: float, threshold that maximizes the metric
+        best_score: float, best metric score achieved
+        metrics_at_best: dict with precision, recall, f1 at optimal threshold
+    """
+    thresholds = np.arange(0.01, 1.0, 0.01)
+    best_score = 0.0
+    optimal_threshold = 0.5
+    best_metrics = {}
+    
+    for thresh in thresholds:
+        pred = (all_outputs > thresh).astype(int)
+        tp = ((pred == 1) & (all_labels == 1)).sum()
+        fp = ((pred == 1) & (all_labels == 0)).sum()
+        fn = ((pred == 0) & (all_labels == 1)).sum()
+        
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+        
+        if metric == 'f1':
+            score = f1
+        elif metric == 'f2':  # F2 score weights recall higher
+            f2 = (1 + 4) * precision * recall / (4 * precision + recall) if (4 * precision + recall) > 0 else 0.0
+            score = f2
+        elif metric == 'precision_recall_balance':
+            # Harmonic mean of precision and recall
+            score = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+        else:
+            score = f1
+        
+        if score > best_score:
+            best_score = score
+            optimal_threshold = thresh
+            best_metrics = {
+                'precision': precision,
+                'recall': recall,
+                'f1': f1,
+                'tp': tp,
+                'fp': fp,
+                'fn': fn
+            }
+    
+    return optimal_threshold, best_score, best_metrics
+
+
+def validate_model(model, data_loader, criterion, device, threshold=0.5, find_optimal_thresh=False):
     """
     Validate the model on validation data.
+    
+    Args:
+        find_optimal_thresh: If True, find optimal threshold that maximizes F1 score
     
     Returns:
         dict with validation metrics
@@ -39,17 +97,33 @@ def validate_model(model, data_loader, criterion, device, threshold=0.5):
     # Calculate metrics
     all_outputs = np.array(all_outputs)
     all_labels = np.array(all_labels)
-    pred = (all_outputs > threshold).astype(int)
     
-    accuracy = (pred == all_labels).mean()
-    tp = ((pred == 1) & (all_labels == 1)).sum()
-    fp = ((pred == 1) & (all_labels == 0)).sum()
-    fn = ((pred == 0) & (all_labels == 1)).sum()
-    tn = ((pred == 0) & (all_labels == 0)).sum()
-    
-    precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-    recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+    # Find optimal threshold if requested
+    if find_optimal_thresh:
+        optimal_thresh, best_f1, best_metrics = find_optimal_threshold(all_outputs, all_labels, metric='f1')
+        print(f'\n  Optimal threshold: {optimal_thresh:.3f} (F1: {best_f1:.4f})')
+        threshold = optimal_thresh
+        # Use metrics at optimal threshold
+        tp = best_metrics['tp']
+        fp = best_metrics['fp']
+        fn = best_metrics['fn']
+        precision = best_metrics['precision']
+        recall = best_metrics['recall']
+        f1 = best_metrics['f1']
+        pred = (all_outputs > threshold).astype(int)
+        tn = ((pred == 0) & (all_labels == 0)).sum()
+        accuracy = (pred == all_labels).mean()
+    else:
+        pred = (all_outputs > threshold).astype(int)
+        accuracy = (pred == all_labels).mean()
+        tp = ((pred == 1) & (all_labels == 1)).sum()
+        fp = ((pred == 1) & (all_labels == 0)).sum()
+        fn = ((pred == 0) & (all_labels == 1)).sum()
+        tn = ((pred == 0) & (all_labels == 0)).sum()
+        
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
     
     avg_loss = total_loss / num_batches
     
@@ -62,7 +136,8 @@ def validate_model(model, data_loader, criterion, device, threshold=0.5):
         'tp': tp,
         'fp': fp,
         'fn': fn,
-        'tn': tn
+        'tn': tn,
+        'threshold': threshold
     }
 
 

@@ -70,7 +70,8 @@ unet:
     overlap: 64
     batch_size: 4
     amp: false
-    save_mask: false
+    save_mask: true
+    save_staff_only: true  # Save staff-only mask (without symbols) for line extraction
     save_clean: true
     save_overlay: false
   visualize:
@@ -118,7 +119,8 @@ yolo:
   infer:
     enabled: true
     model_path: "${global.model_dir}/yolo/detect/yolo12l_muscima_finetune/weights/best.pt"
-    input_image_path: "${global.dataset_root}/v1.0/data/images/w-01/symbol/p001.png"
+    # Input should be U-Net cleaned image (staff-removed), not original symbol image
+    input_image_path: "${global.output_root}/UNet/w-01/p001_clean.png"
     output_dir: "${global.output_root}/inference_output"
     tile_size: 1216
     target_size: 640
@@ -148,19 +150,19 @@ yolo:
 mlp:
   train:
     enabled: true
-    gt_annotations_root: "${global.dataset_root}/v1.0/data/MUSCIMA++/v2.0/data/annotations"
-    images_root: "${global.dataset_root}/v1.0/data/MUSCIMA++/datasets_r_staff/images"
+    gt_annotations_root: "${global.dataset_root}/v1.0/data/cropobjects_manual"
+    images_root: "${global.dataset_root}/v1.0/data/images"
     split_file: "src/mlp/assemblage/splits/mob_split.yaml"
     classes: "essential"  # 20, essential, essn, all
     model_config: "src/mlp/assemblage/configs/assembler/default.py"
     data_config: "src/mlp/assemblage/configs/muscima_nogrammar.yaml"
     exp_name: "mlp_training"
-    batch_size: 32
-    num_epochs: 100
+    batch_size: 512  # Increased from 32 to fully utilize GPU (20GB VRAM)
+    num_epochs: 50
     learning_rate: 0.001
-    pos_weight: 1.0
-    threshold: 0.5
-    num_workers: 0
+    pos_weight: 50.0  # Increased to handle class imbalance
+    threshold: 0.1  # Lowered to improve recall
+    num_workers: 8  # Increased from 0 for parallel data loading
     checkpoint_path: "${global.model_dir}/mlp/${mlp.train.exp_name}/model_best.pth"
     save_period: 5  # Save checkpoint every N epochs
     log_json: null  # auto-generated if null

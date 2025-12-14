@@ -14,7 +14,7 @@ from common.paths import PathManager
 # Import inference functions from UNet.py
 from .UNet import (
     gather_image_samples, infer_image_tiled, apply_staff_removal,
-    mask_to_visual, create_output_paths, load_grayscale, set_seed
+    mask_to_visual, mask_to_staff_only, create_output_paths, load_grayscale, set_seed
 )
 from .train_UNet import UNet
 import torch
@@ -48,11 +48,12 @@ def infer_unet(config: ConfigLoader, path_manager: PathManager) -> None:
     seed = config.global_config.get('seed', 42)
     
     save_mask = infer_config.get('save_mask', False)
+    save_staff_only = infer_config.get('save_staff_only', False)
     save_clean = infer_config.get('save_clean', True)
     save_overlay = infer_config.get('save_overlay', False)
     
-    if not save_mask and not save_clean and not save_overlay:
-        raise ValueError("At least one of mask, clean, or overlay outputs must be enabled.")
+    if not save_mask and not save_staff_only and not save_clean and not save_overlay:
+        raise ValueError("At least one of mask, staff_only, clean, or overlay outputs must be enabled.")
     
     # Setup device
     if device_str == "auto":
@@ -136,9 +137,10 @@ def infer_unet(config: ConfigLoader, path_manager: PathManager) -> None:
         
         # Create outputs
         mask_vis = mask_to_visual(pred_mask)
+        staff_only_vis = mask_to_staff_only(pred_mask)
         
         # If only saving clean images, use original filename (no _clean suffix)
-        only_clean = save_clean and not save_mask and not save_overlay
+        only_clean = save_clean and not save_mask and not save_staff_only and not save_overlay
         
         mask_path, clean_path, overlay_path = create_output_paths(
             output_dir,
@@ -150,6 +152,11 @@ def infer_unet(config: ConfigLoader, path_manager: PathManager) -> None:
         if save_mask:
             Image.fromarray(mask_vis).save(mask_path)
             logger.debug(f"Saved mask: {mask_path}")
+        
+        if save_staff_only:
+            staff_only_path = mask_path.parent / f"{sample.image_path.stem}_staff_only.png"
+            Image.fromarray(staff_only_vis).save(staff_only_path)
+            logger.debug(f"Saved staff-only mask: {staff_only_path}")
         
         if save_clean:
             Image.fromarray(clean_image).save(clean_path)

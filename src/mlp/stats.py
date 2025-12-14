@@ -19,6 +19,7 @@ def stats_mlp(config: ConfigLoader, path_manager: PathManager) -> None:
     output_dir = path_manager.resolve_path(stats_config.get('output_dir', 'vis_stat/mlp'))
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # TODO: Implement statistics generation
-    logger.info(f"Statistics saved to {output_dir}")
+    # Statistics generation logic not yet implemented
+    # This is a placeholder for future MLP statistics features
+    logger.info(f"MLP statistics module loaded (not yet implemented). Output directory: {output_dir}")
 

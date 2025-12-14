@@ -42,10 +42,24 @@ class SymbolLoader:
     """
     Loads and filters symbols from YOLO JSON output.
     """
-    def __init__(self, json_path: Path, min_confidence: float = 0.25):
+    def __init__(self, json_path: Path, min_confidence: float = 0.25, 
+                 class_specific_thresholds: Dict[str, float] = None):
         self.json_path = json_path
         self.min_confidence = min_confidence
+        self.class_specific_thresholds = class_specific_thresholds or {}
         self.symbols: List[Symbol] = []
+        
+    def _get_threshold_for_class(self, class_name: str) -> float:
+        """
+        Returns the confidence threshold for a given class.
+        Uses class-specific threshold if defined, otherwise uses default.
+        """
+        class_name_lower = class_name.lower()
+        # Check if any class-specific threshold matches
+        for class_key, threshold in self.class_specific_thresholds.items():
+            if class_key.lower() in class_name_lower:
+                return threshold
+        return self.min_confidence
         
     def load(self) -> List[Symbol]:
         """
@@ -72,18 +86,29 @@ class SymbolLoader:
             # Check format
             if 'confidence' not in det or 'bbox' not in det:
                 continue
+            
+            class_name = det.get('class_name', 'unknown')
+            # Get class-specific threshold or use default
+            threshold = self._get_threshold_for_class(class_name)
                 
-            if det['confidence'] < self.min_confidence:
+            if det['confidence'] < threshold:
                 continue
                 
             symbol = Symbol(
-                class_name=det.get('class_name', 'unknown'),
+                class_name=class_name,
                 confidence=det['confidence'],
                 bbox=det['bbox']
             )
             self.symbols.append(symbol)
-            
-        print(f"[SymbolLoader] Loaded {len(self.symbols)} symbols (conf >= {self.min_confidence}).")
+        
+        # Count symbols by threshold for reporting
+        stem_count = sum(1 for s in self.symbols if 'stem' in s.class_name.lower())
+        other_count = len(self.symbols) - stem_count
+        print(f"[SymbolLoader] Loaded {len(self.symbols)} symbols:")
+        if stem_count > 0:
+            print(f"  - {stem_count} stems (conf >= 0.1)")
+        if other_count > 0:
+            print(f"  - {other_count} others (conf >= {self.min_confidence})")
         return self.symbols
         
     def sort_by_time(self, symbols: List[Symbol]) -> List[Symbol]:

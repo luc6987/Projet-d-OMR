@@ -166,6 +166,13 @@ def mask_to_visual(mask: np.ndarray) -> np.ndarray:
     return vis
 
 
+def mask_to_staff_only(mask: np.ndarray) -> np.ndarray:
+    """Convert mask to staff-only format (only staff lines, no symbols)."""
+    vis = np.zeros_like(mask, dtype=np.uint8)
+    vis[mask == 1] = 255  # staff in white
+    return vis
+
+
 def build_overlay(clean_image: np.ndarray, mask: np.ndarray) -> np.ndarray:
     """Build pseudo-color overlay for visualization."""
     overlay = np.stack([clean_image] * 3, axis=-1).astype(np.uint8)

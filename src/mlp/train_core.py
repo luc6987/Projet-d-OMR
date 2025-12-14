@@ -65,6 +65,8 @@ def load_model(config, device: str):
 
 def train_mlp(model, cfg, device, train_data, valid_data, output_dir, exp_name, threshold: float = 0.5, model_save_dir=None, viz_save_dir=None):
     """Train MLP linker model."""
+    # Ensure os is available (already imported at module level)
+    import os
     
     # Optimizer and loss
     optimizer = torch.optim.AdamW(model.parameters(), lr=cfg.TRAIN.LEARNING_RATE)
@@ -73,19 +75,38 @@ def train_mlp(model, cfg, device, train_data, valid_data, output_dir, exp_name, 
     print('Model built!')
     print(f'Total parameters: {sum(p.numel() for p in model.parameters()):,}')
     
-    # Create data loaders
+    # Print GPU info if available
+    if torch.cuda.is_available():
+        print(f'GPU: {torch.cuda.get_device_name(0)}')
+        print(f'GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.2f} GB')
+    
+    # Create data loaders with optimized settings for GPU
+    num_workers = getattr(cfg.TRAIN, 'NUM_WORKERS', 8) if hasattr(cfg.TRAIN, 'NUM_WORKERS') else 8
+    pin_memory = torch.cuda.is_available()  # Pin memory for faster GPU transfer
+    
     valid_loader = DataLoader(
         valid_data, 
         batch_size=cfg.TRAIN.BATCH_SIZE,
         shuffle=False,  
-        num_workers=0
+        num_workers=num_workers,
+        pin_memory=pin_memory,
+        persistent_workers=num_workers > 0  # Keep workers alive between epochs
     )
     train_loader = DataLoader(
         train_data, 
         batch_size=cfg.TRAIN.BATCH_SIZE,
         shuffle=True, 
-        num_workers=0  
+        num_workers=num_workers,
+        pin_memory=pin_memory,
+        persistent_workers=num_workers > 0  # Keep workers alive between epochs
     )
+    
+    print(f'\nDataLoader settings:')
+    print(f'  Batch size: {cfg.TRAIN.BATCH_SIZE}')
+    print(f'  Num workers: {num_workers}')
+    print(f'  Pin memory: {pin_memory}')
+    print(f'  Training batches: {len(train_loader):,}')
+    print(f'  Validation batches: {len(valid_loader):,}')
     
     # Training loop with validation
     best_f1 = 0.0
@@ -106,13 +127,22 @@ def train_mlp(model, cfg, device, train_data, valid_data, output_dir, exp_name, 
 
     epoch_numbers = []
 
-    # Model save directory
-    model_save_dir = 'model/mlp'
+    # Resolve model save directory
+    if model_save_dir is None:
+        base_model_dir = output_dir if output_dir is not None else 'model/mlp'
+        model_save_dir = f'{base_model_dir}/{exp_name}' if exp_name else base_model_dir
     os.makedirs(model_save_dir, exist_ok=True)
     
-    # Visualization save directory
-    viz_save_dir = 'vis_stat/mlp'
+    # Resolve visualization save directory
+    if viz_save_dir is None:
+        base_viz_dir = output_dir if output_dir is not None else 'vis_stat/mlp'
+        viz_save_dir = f'{base_viz_dir}/{exp_name}' if exp_name else base_viz_dir
     os.makedirs(viz_save_dir, exist_ok=True)
+
+    # Validation frequency: validate every N epochs (default: 5)
+    # Set to 1 for validation every epoch, or higher to reduce validation overhead
+    validation_frequency = 5
+    print(f'\nValidation will run every {validation_frequency} epochs to save time.')
 
     for epoch in range(cfg.TRAIN.NUM_EPOCHS):
         model.train()
@@ -217,45 +247,72 @@ def train_mlp(model, cfg, device, train_data, valid_data, output_dir, exp_name, 
             best_f1 = f1
             print(f'  *** New best training F1 score: {best_f1:.4f} ***')
         
-        # Run validation
-        val_metrics = validate_model(model, valid_loader, criterion, device, threshold)
+        # Run validation only at specified intervals to save time
+        # Validate every N epochs, or on the last epoch, or on the first epoch
+        should_validate = (
+            (epoch + 1) % validation_frequency == 0 or 
+            (epoch + 1) == cfg.TRAIN.NUM_EPOCHS or 
+            epoch == 0
+        )
         
-        # Store validation metrics
-        val_losses.append(val_metrics['loss'])
-        val_accuracies.append(val_metrics['accuracy'])
-        val_precisions.append(val_metrics['precision'])
-        val_recalls.append(val_metrics['recall'])
-        val_f1_scores.append(val_metrics['f1'])
-        
-        print(f'\nEpoch {epoch+1} Validation Metrics:')
-        print(f'  Loss:      {val_metrics["loss"]:.4f}')
-        print(f'  Accuracy:  {val_metrics["accuracy"]:.4f}')
-        print(f'  Precision: {val_metrics["precision"]:.4f}')
-        print(f'  Recall:    {val_metrics["recall"]:.4f}')
-        print(f'  F1 Score:  {val_metrics["f1"]:.4f}')
-        print(f'  TP: {val_metrics["tp"]}, FP: {val_metrics["fp"]}, FN: {val_metrics["fn"]}, TN: {val_metrics["tn"]}')
-        
-        # Track best validation F1
-        if val_metrics['f1'] > best_val_f1:
-            best_val_f1 = val_metrics['f1']
-            print(f'  *** New best validation F1 score: {best_val_f1:.4f} ***')
-            # Save best model
-            if model_save_dir is None:
+        if should_validate:
+            # Run validation with optimal threshold finding
+            val_metrics = validate_model(model, valid_loader, criterion, device, threshold, find_optimal_thresh=True)
+            
+            # Store validation metrics
+            val_losses.append(val_metrics['loss'])
+            val_accuracies.append(val_metrics['accuracy'])
+            val_precisions.append(val_metrics['precision'])
+            val_recalls.append(val_metrics['recall'])
+            val_f1_scores.append(val_metrics['f1'])
+            
+            print(f'\nEpoch {epoch+1} Validation Metrics:')
+            print(f'  Loss:      {val_metrics["loss"]:.4f}')
+            print(f'  Accuracy:  {val_metrics["accuracy"]:.4f}')
+            print(f'  Precision: {val_metrics["precision"]:.4f}')
+            print(f'  Recall:    {val_metrics["recall"]:.4f}')
+            print(f'  F1 Score:  {val_metrics["f1"]:.4f}')
+            if 'threshold' in val_metrics:
+                print(f'  Threshold: {val_metrics["threshold"]:.3f} (optimized)')
+            print(f'  TP: {val_metrics["tp"]}, FP: {val_metrics["fp"]}, FN: {val_metrics["fn"]}, TN: {val_metrics["tn"]}')
+            
+            # Track best validation F1
+            if val_metrics['f1'] > best_val_f1:
+                best_val_f1 = val_metrics['f1']
+                print(f'  *** New best validation F1 score: {best_val_f1:.4f} ***')
+                # Save best model
+                if model_save_dir is None:
+                    import os
+                    os.makedirs(f'{output_dir}/{exp_name}', exist_ok=True)
+                    model_save_dir = f'{output_dir}/{exp_name}'
                 import os
-                os.makedirs(f'{output_dir}/{exp_name}', exist_ok=True)
-                model_save_dir = f'{output_dir}/{exp_name}'
-            import os
-            os.makedirs(model_save_dir, exist_ok=True)
-            best_model_path = f'{model_save_dir}/model_best.pth'
-            checkpoint = {
-                'epoch': epoch + 1,
-                'model': model.state_dict(),
-                'optimizer': optimizer.state_dict(),
-                'val_f1': best_val_f1,
-                'config': cfg
-            }
-            torch.save(checkpoint, best_model_path)
-            print(f'  Best model saved to {best_model_path}')
+                os.makedirs(model_save_dir, exist_ok=True)
+                best_model_path = f'{model_save_dir}/model_best.pth'
+                checkpoint = {
+                    'epoch': epoch + 1,
+                    'model': model.state_dict(),
+                    'optimizer': optimizer.state_dict(),
+                    'val_f1': best_val_f1,
+                    'config': cfg
+                }
+                torch.save(checkpoint, best_model_path)
+                print(f'  Best model saved to {best_model_path}')
+        else:
+            # For epochs without validation, use the last validation metrics (for plotting continuity)
+            # This ensures the plot has consistent data points
+            if len(val_losses) > 0:
+                val_losses.append(val_losses[-1])
+                val_accuracies.append(val_accuracies[-1])
+                val_precisions.append(val_precisions[-1])
+                val_recalls.append(val_recalls[-1])
+                val_f1_scores.append(val_f1_scores[-1])
+            else:
+                # If no validation has been run yet, use zeros
+                val_losses.append(0.0)
+                val_accuracies.append(0.0)
+                val_precisions.append(0.0)
+                val_recalls.append(0.0)
+                val_f1_scores.append(0.0)
         
         # Save checkpoint periodically
         if (epoch + 1) % cfg.TRAIN.SAVE_FREQUENCY == 0:
@@ -278,6 +335,38 @@ def train_mlp(model, cfg, device, train_data, valid_data, output_dir, exp_name, 
     print('\n=== Training Complete ===')
     print(f'Best Training F1 Score: {best_f1:.4f}')
     print(f'Best Validation F1 Score: {best_val_f1:.4f}')
+    
+    # Final validation to ensure we have the latest model performance
+    print('\n=== Running Final Validation ===')
+    model.eval()
+    final_val_metrics = validate_model(model, valid_loader, criterion, device, threshold, find_optimal_thresh=True)
+    print(f'Final Validation Metrics:')
+    print(f'  Loss:      {final_val_metrics["loss"]:.4f}')
+    print(f'  Accuracy:  {final_val_metrics["accuracy"]:.4f}')
+    print(f'  Precision: {final_val_metrics["precision"]:.4f}')
+    print(f'  Recall:    {final_val_metrics["recall"]:.4f}')
+    print(f'  F1 Score:  {final_val_metrics["f1"]:.4f}')
+    if 'threshold' in final_val_metrics:
+        print(f'  Threshold: {final_val_metrics["threshold"]:.3f} (optimized)')
+    print(f'  TP: {final_val_metrics["tp"]}, FP: {final_val_metrics["fp"]}, FN: {final_val_metrics["fn"]}, TN: {final_val_metrics["tn"]}')
+    
+    # Update best validation F1 if final validation is better
+    if final_val_metrics['f1'] > best_val_f1:
+        best_val_f1 = final_val_metrics['f1']
+        print(f'  *** Final validation F1 ({best_val_f1:.4f}) is the best! ***')
+        # Save final best model
+        import os
+        os.makedirs(model_save_dir, exist_ok=True)
+        best_model_path = f'{model_save_dir}/model_best.pth'
+        checkpoint = {
+            'epoch': cfg.TRAIN.NUM_EPOCHS,
+            'model': model.state_dict(),
+            'optimizer': optimizer.state_dict(),
+            'val_f1': best_val_f1,
+            'config': cfg
+        }
+        torch.save(checkpoint, best_model_path)
+        print(f'  Best model saved to {best_model_path}')
     
     # Save visualization
     if viz_save_dir is None:
@@ -315,8 +404,8 @@ if __name__ == "__main__":
     print(f'Using device: {device}')
     
     # Data paths
-    gt_annotations_root = 'data/MUSCIMA++/v2.0/data/annotations'
-    images_root = 'data/MUSCIMA++/datasets_r_staff/images'
+    gt_annotations_root = 'data/v1.0/data/MUSCIMA++/v2.0/data/annotations'
+    images_root = 'data/v1.0/data/MUSCIMA++/datasets_r_staff/images'
     split_file = cfg.SPFILE
     
     print('Configuration loaded!')
@@ -374,11 +463,13 @@ if __name__ == "__main__":
         criterion = torch.nn.BCEWithLogitsLoss(pos_weight=torch.tensor(cfg.TRAIN.POS_WEIGHT).to(device))
         test_data = load_test_data(gt_annotations_root, images_root, split_file, class_list, class_dict, data_config)
         test_data = test_data['test']
+        test_num_workers = getattr(cfg.TRAIN, 'NUM_WORKERS', 4) if hasattr(cfg.TRAIN, 'NUM_WORKERS') else 4
         test_loader = DataLoader(
             test_data, 
             batch_size=cfg.TRAIN.BATCH_SIZE,
             shuffle=False, 
-            num_workers=0  
+            num_workers=test_num_workers,
+            pin_memory=torch.cuda.is_available()
         )
         model = load_model(cfg, device=device)
         # Load best model if exists

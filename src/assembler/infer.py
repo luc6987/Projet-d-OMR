@@ -41,11 +41,13 @@ def infer_assembler(config: ConfigLoader, path_manager: PathManager) -> None:
     # Convert config to command-line args
     original_argv = sys.argv
     try:
+        exp_name = infer_config.get('exp_name', 'mlp_training')
+        default_model = f'model/mlp/{exp_name}/model_best.pth'
         sys.argv = ['run_assembly.py'] + [
             '--json', str(json_path),
             '--mask', str(mask_path),
             '--output', str(output_path),
-            '--model', str(path_manager.resolve_path(infer_config.get('model_path', 'model/mlp/model_best.pth'))),
+            '--model', str(path_manager.resolve_path(infer_config.get('model_path', default_model))),
         ]
         
         if infer_config.get('title'):

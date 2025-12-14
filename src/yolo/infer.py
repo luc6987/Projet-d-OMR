@@ -40,10 +40,11 @@ def infer_yolo(config: ConfigLoader, path_manager: PathManager) -> None:
         tile_size=infer_config.get('tile_size', 1216),
         target_size=infer_config.get('target_size', 640),
         overlap=infer_config.get('overlap', 100),
-        confidence_threshold=infer_config.get('confidence_threshold', 0.25),
-        iou_threshold=infer_config.get('iou_threshold', 0.45),
-        nms_iou_threshold=infer_config.get('nms_iou_threshold', 0.5),
     )
+    # Set thresholds as attributes (used in process_tile and apply_nms)
+    inferencer.confidence_threshold = infer_config.get('confidence_threshold', 0.25)
+    inferencer.iou_threshold = infer_config.get('iou_threshold', 0.45)
+    inferencer.nms_iou_threshold = infer_config.get('nms_iou_threshold', 0.5)
     
     inferencer.output_dir = output_dir
     output_dir.mkdir(parents=True, exist_ok=True)

@@ -1,6 +1,6 @@
 import numpy as np
 from enum import Enum
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 
 class ClefType(Enum):
     G_CLEF = "g-clef" # Treble
@@ -45,38 +45,95 @@ class PitchEngine:
     SCALE = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
     
     @staticmethod
-    def calculate_pitch(center_y: float, staff_lines: List[int], clef_type: ClefType = ClefType.G_CLEF) -> str:
+    def calculate_pitch(center_y: float, staff_lines: List[int], clef_type: ClefType = ClefType.G_CLEF,
+                       key_signature: Optional[Dict[str, str]] = None) -> str:
         """
         Calculates pitch name (e.g. 'C4', 'F#5') given a Y coordinate.
+        Uses precise step calculation: Step = (Y_line - Y_notehead) / (Line_Spacing / 2)
         
         Args:
-            center_y: Y-coordinate of the note center.
+            center_y: Y-coordinate of the note center (uses center point to handle bbox errors).
             staff_lines: List of 5 y-coordinates of staff lines (sorted ascending/top-to-bottom).
             clef_type: Type of clef for this staff.
+            key_signature: Optional dict mapping note names to accidentals (e.g., {'F': 'sharp'}).
+                          If provided, applies key signature accidentals to the calculated pitch.
             
         Returns:
-            Pitch string (e.g., "C4"). Returns "Unknown" if too far.
+            Pitch string (e.g., "C4", "F#4"). Returns "Unknown" if too far.
         """
-        if not staff_lines:
+        if not staff_lines or len(staff_lines) < 2:
             return "Unknown"
+        
+        # Calculate line spacing more precisely
+        # Use median spacing to be robust to outliers
+        line_distances = np.diff(staff_lines)
+        median_line_dist = np.median(line_distances)
+        step_size = median_line_dist / 2.0  # Half-space = 1 step
+        
+        # Find the closest staff line to minimize error accumulation
+        closest_line_idx = -1
+        min_dist = float('inf')
+        
+        for i, line_y in enumerate(staff_lines):
+            dist = abs(center_y - line_y)
+            if dist < min_dist:
+                min_dist = dist
+                closest_line_idx = i
+                
+        # Base steps for the closest line
+        # Top line (idx 0) = 0 steps
+        # Each subsequent line is 2 steps lower
+        base_steps = closest_line_idx * 2
+        
+        # Calculate offset from the closest line
+        closest_line_y = staff_lines[closest_line_idx]
+        delta_y_local = center_y - closest_line_y
+        steps_local = delta_y_local / step_size
+        
+        # Total steps from top line
+        total_steps = base_steps + steps_local
+        
+        # Round to nearest half-step for better accuracy
+        steps_down_rounded = round(total_steps * 2) / 2.0
+        
+        # Get base pitch name
+        pitch_name = PitchEngine._get_pitch_from_ref(clef_type, int(round(steps_down_rounded)))
+        
+        # Apply key signature if provided
+        if key_signature:
+            pitch_name = PitchEngine._apply_key_signature(pitch_name, key_signature)
+        
+        return pitch_name
+    
+    @staticmethod
+    def _apply_key_signature(pitch_name: str, key_signature: Dict[str, str]) -> str:
+        """
+        Applies key signature accidentals to a pitch name.
+        
+        Args:
+            pitch_name: Base pitch name (e.g., "F4")
+            key_signature: Dict mapping note names to accidentals (e.g., {'F': 'sharp', 'C': 'sharp'})
             
-        # Calculate average spacing (half-space = 1 step)
-        # Spacing between lines is 2 steps (Line -> Space -> Line)
-        avg_line_dist = np.mean(np.diff(staff_lines))
-        step_size = avg_line_dist / 2.0
+        Returns:
+            Pitch name with accidental if needed (e.g., "F#4")
+        """
+        if not pitch_name or len(pitch_name) < 2:
+            return pitch_name
         
-        # Reference: Top Line (index 0)
-        top_line_y = staff_lines[0]
+        note_name = pitch_name[0]
+        octave = pitch_name[1:] if len(pitch_name) > 1 else ""
         
-        # Calculate steps from top line
-        # Positive delta y (downwards) -> Lower pitch
-        delta_y = center_y - top_line_y
+        if note_name in key_signature:
+            accidental = key_signature[note_name]
+            if accidental == 'sharp':
+                return f"{note_name}#{octave}"
+            elif accidental == 'flat':
+                return f"{note_name}b{octave}"
+            elif accidental == 'natural':
+                # Natural cancels previous accidental
+                return f"{note_name}{octave}"
         
-        # steps = delta_y / step_size
-        # Round to nearest integer
-        steps_down = round(delta_y / step_size)
-        
-        return PitchEngine._get_pitch_from_ref(clef_type, steps_down)
+        return pitch_name
         
     @staticmethod
     def _get_pitch_from_ref(clef_type: ClefType, steps_down: int) -> str:

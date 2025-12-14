@@ -8,7 +8,7 @@ THRESHOLD_NEGATIVE_DISTANCE: 200
 FILTER_PAIRS: True  # Only consider pairs within THRESHOLD_NEGATIVE_DISTANCE
 
 # Restriction to avoid imbalanced dataset of having 10 negatives for 1 positive example
-MAX_NEGATIVE_EXAMPLES_PER_OBJECT: 10
+MAX_NEGATIVE_EXAMPLES_PER_OBJECT: 5  # Reduced from 10 to improve balance
 
 # At validation time, we should test against the runtime
 # situation, where we will classify every pair within

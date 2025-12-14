@@ -72,6 +72,7 @@ def train_mlp(config: ConfigLoader, path_manager: PathManager) -> None:
     cfg.TRAIN.LEARNING_RATE = train_config.get('learning_rate', 0.001)
     cfg.TRAIN.POS_WEIGHT = train_config.get('pos_weight', 1.0)
     cfg.TRAIN.SAVE_FREQUENCY = train_config.get('save_period', 5)
+    cfg.TRAIN.NUM_WORKERS = train_config.get('num_workers', 8)  # Add num_workers to config
     
     # Load device
     device_str = config.global_config.get('device', 'auto')

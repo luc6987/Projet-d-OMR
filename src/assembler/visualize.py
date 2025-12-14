@@ -20,6 +20,7 @@ def visualize_assembler(config: ConfigLoader, path_manager: PathManager) -> None
     output_dir = path_manager.resolve_path(vis_config.get('output_dir', 'vis_stat/assembler'))
     visualizer = BaseVisualizer(output_dir)
     
-    # TODO: Implement visualization logic
-    logger.info(f"Visualizations saved to {output_dir}")
+    # Visualization logic not yet implemented
+    # This is a placeholder for future assembler visualization features
+    logger.info(f"Assembler visualization module loaded (not yet implemented). Output directory: {output_dir}")
 

@@ -1,7 +1,7 @@
 v1.0/
 Yolo-Dataset/
 .DS_Store
-.vscode/
+
 .idea/
 .pytest_cache/
 .pytest_cache/
@@ -11,3 +11,7 @@ Output/
 vis_stat/
 logs/
 data/
+.env/
+model/
+vis_stat/
+.vscode/

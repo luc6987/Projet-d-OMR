@@ -41,6 +41,11 @@ class TiledInference:
         self.model = YOLO(model_path)
         print("Model loading completed")
         
+        # Initialize thresholds (can be set later)
+        self.confidence_threshold = 0.25
+        self.iou_threshold = 0.45
+        self.nms_iou_threshold = 0.5
+        
         # Create output directory (will be set by caller via path_manager)
         # Default to project root relative path
         project_root = Path(__file__).resolve().parent.parent.parent
@@ -102,10 +107,14 @@ class TiledInference:
         
         # Handle bottom remaining part (if exists)
         if remaining_height > 0:
-            # Start from right edge, add one more row
+            # Start from top, add one more row
             for col in range(full_cols):
                 x = col * self.tile_size
-                y = height - self.tile_size  # Start from bottom edge
+                # If image height < tile_size, start from 0, otherwise from bottom
+                if height < self.tile_size:
+                    y = 0  # Start from top if image is smaller than tile
+                else:
+                    y = height - self.tile_size  # Start from bottom edge
                 
                 # Extract tile (may be less than 1216 height)
                 tile = image[y:y+self.tile_size, x:x+self.tile_size]
@@ -121,7 +130,11 @@ class TiledInference:
         # Handle bottom-right corner (if bottom-right corner has remaining parts)
         if remaining_width > 0 and remaining_height > 0:
             x = width - self.tile_size
-            y = height - self.tile_size
+            # If image height < tile_size, start from 0, otherwise from bottom
+            if height < self.tile_size:
+                y = 0  # Start from top if image is smaller than tile
+            else:
+                y = height - self.tile_size  # Start from bottom edge
             
             # Extract tile (may be less than 1216x1216)
             tile = image[y:y+self.tile_size, x:x+self.tile_size]
@@ -153,7 +166,7 @@ class TiledInference:
         resized_tile = cv2.resize(tile, (self.target_size, self.target_size))
         
         # Perform inference
-        results = self.model(resized_tile, conf=0.25, iou=0.45)
+        results = self.model(resized_tile, conf=self.confidence_threshold, iou=self.iou_threshold)
         
         # Parse results
         detections = []
@@ -494,7 +507,7 @@ class TiledInference:
         
         # Apply NMS
         print("Applying non-maximum suppression...")
-        filtered_detections = self.apply_nms(all_detections)
+        filtered_detections = self.apply_nms(all_detections, self.nms_iou_threshold)
         print(f"Detected {len(all_detections)} targets, {len(filtered_detections)} remaining after NMS")
         
         # Reconstruct image

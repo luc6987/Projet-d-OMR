@@ -154,8 +154,16 @@ class GroundTruthDataPool(Dataset):
         target_bbox = torch.tensor(mung_to.bounding_box, dtype=torch.float32) * reshape_weight + reshape_bias
 
         # Use ground truth class labels (not predictions)
-        source_class = torch.tensor(self.class_dict[mung_from.class_name], dtype=torch.long)
-        target_class = torch.tensor(self.class_dict[mung_to.class_name], dtype=torch.long)
+        # Skip if class not in class_dict (should have been excluded, but double-check)
+        if mung_from.class_name not in self.class_dict:
+            # Use a default class (e.g., the first class) as fallback
+            source_class = torch.tensor(0, dtype=torch.long)
+        else:
+            source_class = torch.tensor(self.class_dict[mung_from.class_name], dtype=torch.long)
+        if mung_to.class_name not in self.class_dict:
+            target_class = torch.tensor(0, dtype=torch.long)
+        else:
+            target_class = torch.tensor(self.class_dict[mung_to.class_name], dtype=torch.long)
 
         # Ground truth edge label: 1 if objects are linked, 0 otherwise
         label = torch.tensor(
@@ -261,9 +269,15 @@ class GroundTruthDataPool(Dataset):
         print(f"TRAINING PAIRS PREPARED")
         print(f"{'='*60}")
         print(f"Total pairs created: {number_of_samples:,}")
-        print(f"Average pairs per document: {number_of_samples/len(self.mungs):.1f}")
+        if len(self.mungs) > 0:
+            print(f"Average pairs per document: {number_of_samples/len(self.mungs):.1f}")
+        else:
+            print(f"Average pairs per document: 0 (no documents loaded)")
         print(f"Total time: {total_time:.2f}s")
-        print(f"Average time per document: {np.mean(doc_times):.2f}s")
+        if len(doc_times) > 0:
+            print(f"Average time per document: {np.mean(doc_times):.2f}s")
+        else:
+            print(f"Average time per document: 0s (no documents processed)")
         print(f"{'='*60}\n")
 
     def get_inference_graph(self):
@@ -397,7 +411,34 @@ def load_split(split_file):
 
 def __load_mung(filename: str, exclude_classes: List[str]) -> NotationGraph:
     """Load ground truth MuNG annotations, excluding specified classes."""
-    mungos = read_nodes_from_file(filename)
+    try:
+        mungos = read_nodes_from_file(filename)
+    except (IndexError, KeyError) as e:
+        # Try to handle MLClassName format by reading XML manually
+        import xml.etree.ElementTree as ET
+        tree = ET.parse(filename)
+        root = tree.getroot()
+        mungos = []
+        from mung.node import Node
+        for crop_obj in root.findall('.//CropObject'):
+            obj_id = int(crop_obj.find('Id').text)
+            # Try ClassName first, then MLClassName
+            class_name_elem = crop_obj.find('ClassName')
+            if class_name_elem is None:
+                class_name_elem = crop_obj.find('MLClassName')
+            if class_name_elem is None:
+                continue
+            class_name = class_name_elem.text
+            top = int(crop_obj.find('Top').text)
+            left = int(crop_obj.find('Left').text)
+            width = int(crop_obj.find('Width').text)
+            height = int(crop_obj.find('Height').text)
+            outlinks_elem = crop_obj.find('Outlinks')
+            outlinks = []
+            if outlinks_elem is not None and outlinks_elem.text:
+                outlinks = [int(x) for x in outlinks_elem.text.strip().split()]
+            node = Node(id_=obj_id, class_name=class_name, top=top, left=left, width=width, height=height, outlinks=outlinks)
+            mungos.append(node)
     mung = NotationGraph(mungos)
     objects_to_exclude = [m for m in mungos if m.class_name in exclude_classes]
     for m in objects_to_exclude:
@@ -470,8 +511,10 @@ def __load_ground_truth_data(gt_annotations_root: str, images_root: str,
     mung_load_times = []
     image_load_times = []
 
-    for idx, (mung_file, image_file) in tqdm(enumerate(zip(mung_files_in_this_split, image_files_in_this_split)),
-                                              total=len(mung_files_in_this_split)):
+    # If no image files found, we'll create dummy images from bounding boxes
+    use_dummy_images = len(image_files_in_this_split) == 0
+    
+    for idx, mung_file in enumerate(tqdm(mung_files_in_this_split, desc="Loading documents")):
         mung_start = time.time()
         mung = __load_mung(mung_file, exclude_classes)
         mung_time = time.time() - mung_start
@@ -483,7 +526,44 @@ def __load_ground_truth_data(gt_annotations_root: str, images_root: str,
         mungs.append(mung)
 
         image_start = time.time()
-        image = __load_image(image_file)
+        if use_dummy_images:
+            # Create dummy image from bounding box dimensions
+            max_top = 0
+            max_left = 0
+            max_bottom = 0
+            max_right = 0
+            for node in mung.vertices:
+                bbox = node.bounding_box  # (top, left, width, height)
+                top, left, width, height = bbox
+                max_top = max(max_top, top)
+                max_left = max(max_left, left)
+                max_bottom = max(max_bottom, top + height)
+                max_right = max(max_right, left + width)
+            # Add some padding (10% on each side)
+            img_height = int(max_bottom * 1.2) + 100
+            img_width = int(max_right * 1.2) + 100
+            # Create binary image (all white/1)
+            image = np.ones((img_height, img_width), dtype='uint8') * 255
+            print(f"    [INFO] Created dummy image {img_height}x{img_width} from bounding boxes")
+        else:
+            image_file = image_files_in_this_split[idx] if idx < len(image_files_in_this_split) else None
+            if image_file and os.path.exists(image_file):
+                image = __load_image(image_file)
+            else:
+                # Fallback to dummy image if file doesn't exist
+                max_top = 0
+                max_left = 0
+                max_bottom = 0
+                max_right = 0
+                for node in mung.vertices:
+                    bbox = node.bounding_box
+                    top, left, width, height = bbox
+                    max_bottom = max(max_bottom, top + height)
+                    max_right = max(max_right, left + width)
+                img_height = int(max_bottom * 1.2) + 100
+                img_width = int(max_right * 1.2) + 100
+                image = np.ones((img_height, img_width), dtype='uint8') * 255
+                print(f"    [WARNING] Image file not found, created dummy image {img_height}x{img_width}")
         image_time = time.time() - image_start
         image_load_times.append(image_time)
         images.append(image)

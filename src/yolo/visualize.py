@@ -20,6 +20,7 @@ def visualize_yolo(config: ConfigLoader, path_manager: PathManager) -> None:
     output_dir = path_manager.resolve_path(vis_config.get('output_dir', 'vis_stat/yolo'))
     visualizer = BaseVisualizer(output_dir)
     
-    # TODO: Implement visualization logic
-    logger.info(f"Visualizations saved to {output_dir}")
+    # Visualization logic not yet implemented
+    # This is a placeholder for future YOLO visualization features
+    logger.info(f"YOLO visualization module loaded (not yet implemented). Output directory: {output_dir}")
 
