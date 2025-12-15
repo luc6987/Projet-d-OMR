@@ -2,22 +2,27 @@ DATA:
   DATA_CONFIG: configs/muscima_nogrammar.yaml
 EVAL:
   BATCH_SIZE: 1024
+GT_ROOT: data/MUSCIMA++/v2.0/data/annotations
+IM_ROOT: data/MUSCIMA++/datasets_r_staff/images
 MODEL:
   EMBEDDING_DIM: 32
   MLP_CONFIG:
   - 32
   - 32
+  MLP_PARA: configs/assembler/MLP32_nogrammar.yaml
   MODE: MLP
   VOCAB_DIM: 177
+PATH: {}
+SPFILE: splits/mob_split.yaml
 SYSTEM:
-  NUM_GPUS: 1
-  NUM_WORKERS: 4
+  NUM_GPUS: 0
+  NUM_WORKERS: 0
   SEED: 95
 TRAIN:
   BATCH_SIZE: 256
   EVAL_FREQUENCY: 10
   LEARNING_RATE: 0.001
   NUM_EPOCHS: 200
-  OPTIMIZER: Adam
+  OPTIMIZER: AdamW
   POS_WEIGHT: 1
   SAVE_FREQUENCY: 20

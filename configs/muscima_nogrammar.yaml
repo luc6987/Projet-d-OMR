@@ -5,10 +5,9 @@ NORMALIZE_BOUNDING_BOXES: TRUE
 
 # Data point sampling parameters
 THRESHOLD_NEGATIVE_DISTANCE: 200
-FILTER_PAIRS: True  # Only consider pairs within THRESHOLD_NEGATIVE_DISTANCE
 
 # Restriction to avoid imbalanced dataset of having 10 negatives for 1 positive example
-MAX_NEGATIVE_EXAMPLES_PER_OBJECT: 10
+MAX_NEGATIVE_EXAMPLES_PER_OBJECT: -1
 
 # At validation time, we should test against the runtime
 # situation, where we will classify every pair within
@@ -28,5 +27,3 @@ IMAGE_ZOOM: 1.0
 # Randomly moves the patch this many pixels away from the midpoint
 # between the two sampled objects.
 MAX_PATCH_DISPLACEMENT: 0
-
-

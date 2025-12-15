@@ -325,10 +325,12 @@ class GroundTruthDataPool(Dataset):
         """Find objects within threshold distance of each node."""
         start_time = time.time()
         close_objects = {}
+        
+        # Store all distances for analysis
+        all_distances = []
         for c in nodes:
             close_objects[c] = []
 
-    
         total_comparisons = len(nodes) * len(nodes)
         if total_comparisons > 100000:
             print(f"\n    [DEBUG WARNING: Computing {total_comparisons:,} distance comparisons - this may be slow!]", flush=True)
@@ -337,10 +339,26 @@ class GroundTruthDataPool(Dataset):
         for c in nodes:
             for d in nodes:
                 distance = c.distance_to(d)
+                all_distances.append(distance)  # ← Collect all distances
+                
                 if distance < threshold:
                     close_objects[c].append(d)
                     close_objects[d].append(c)
         distance_calc_time = time.time() - distance_calc_start
+        
+        # Print distance statistics
+        all_distances = np.array(all_distances)
+        print(f"\n    [DISTANCE STATS]")
+        print(f"      Total distance computations: {len(all_distances):,}")
+        print(f"      Min distance: {all_distances.min():.2f}")
+        print(f"      Max distance: {all_distances.max():.2f}")
+        print(f"      Mean distance: {all_distances.mean():.2f}")
+        print(f"      Median distance: {np.median(all_distances):.2f}")
+        print(f"      Std distance: {all_distances.std():.2f}")
+        print(f"      25th percentile: {np.percentile(all_distances, 25):.2f}")
+        print(f"      75th percentile: {np.percentile(all_distances, 75):.2f}")
+        print(f"      Threshold: {threshold}")
+        print(f"      Pairs within threshold: {(all_distances < threshold).sum():,} ({(all_distances < threshold).sum()/len(all_distances)*100:.2f}%)")
 
         # Remove duplicates
         dedup_start = time.time()
@@ -354,7 +372,6 @@ class GroundTruthDataPool(Dataset):
             print(f"    [DEBUG] Distance calculation: {distance_calc_time:.2f}s, deduplication: {dedup_time:.2f}s, total: {total_time:.2f}s", flush=True)
 
         return close_objects
-
     def get_all_neighboring_object_pairs(self, nodes: List[Node],
                                          max_object_distance,
                                          grammar=None) -> List[Tuple[Node, Node]]:

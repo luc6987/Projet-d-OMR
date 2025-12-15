@@ -19,7 +19,7 @@ _C.MODEL.MODE = "MLP"
 _C.MODEL.MLP_CONFIG = [32, 32]
 _C.MODEL.EMBEDDING_DIM = 32
 _C.MODEL.VOCAB_DIM = 177
-_C.MODEL.MLP_PARA = "configs/assembler/MLP32_balanced.yaml"
+_C.MODEL.MLP_PARA = "configs/assembler/MLP32_nogrammar.yaml"
 
 
 # DATA PATH
@@ -36,7 +36,7 @@ _C.TRAIN.EVAL_FREQUENCY = 5
 _C.TRAIN.SAVE_FREQUENCY = 5
 # Loss and Optimizer
 _C.TRAIN.POS_WEIGHT = 1
-_C.TRAIN.OPTIMIZER = "AdamW"
+_C.TRAIN.OPTIMIZER = "Adam"
 _C.TRAIN.LEARNING_RATE = 1e-3
 
 
